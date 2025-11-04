@@ -1,12 +1,13 @@
 {
-  "name": "my-section1-app",
+  "name": "my-nextjs-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "npx rimraf .next"
   },
   "dependencies": {
     "react": "19.2.0",
