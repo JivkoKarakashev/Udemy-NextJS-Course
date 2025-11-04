@@ -1,0 +1,64 @@
+@mixin article($theme: #9c7eee) {
+    padding: 1em 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+
+    background-color: $theme;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    animation: animate-in 1s ease-out forwards;
+}
+
+@mixin title($theme: #2a1347) {
+    font-size: 1.25em;
+    color: $theme;
+    font-weight: 600;
+}
+
+@mixin text($theme: #593884) {
+    font-size: .9em;
+    color: $theme;
+    font-style: italic;
+}
+
+@mixin footer($theme: #543280) {
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+
+    font-size: 0.8em;
+    font-weight: bold;
+    color: $theme;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.article {
+    @include article;
+
+    .title {
+        @include title;
+    }
+
+    .text {
+        @include text;
+    }
+
+    .footer {
+        @include footer;
+    }
+}
+
+@keyframes animate-in {
+    from {
+        opacity: 0;
+        transform: translateY(1em);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
