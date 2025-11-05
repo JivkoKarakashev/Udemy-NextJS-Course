@@ -1,12 +1,24 @@
+import { useState } from "react";
+
 import styles from "./App.module.scss";
-import PostsList from "./components/Posts-list";
+import Header from "./components/Header.tsx";
+import PostsList from "./components/Posts-list.tsx";
 
 function App() {
+  const [modalOpenState, setModalOpenState] = useState(true);
+
+  const toggleModalHandler = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    console.log(e);
+    setModalOpenState(!modalOpenState);
+  }
 
   return (
-    <main className={styles.main}>
-      <PostsList />
-    </main>
+    <>
+      <Header modalIsOpen toggleModal={toggleModalHandler} />
+      <main className={styles.main}>
+        <PostsList isOpen={modalOpenState} toggleModal={toggleModalHandler} />
+      </main>
+    </>
   );
 }
 

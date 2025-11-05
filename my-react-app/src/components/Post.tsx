@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 import styles from "./Post.module.scss";
-import type { PostProps } from "../types/props.tsx";
+import type { PostProps } from "../types/postProps";
 
 const Post = (props: PostProps): ReactElement => {
 

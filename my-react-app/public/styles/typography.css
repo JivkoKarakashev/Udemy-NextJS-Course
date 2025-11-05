@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    background-color: #020618;
+    /* background-color: #020618; */
+    background-color: #e6ddf9;
     color: #d1d5db;
     min-height: 75vh;
 }

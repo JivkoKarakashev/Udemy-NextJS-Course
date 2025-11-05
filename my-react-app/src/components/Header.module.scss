@@ -1,0 +1,57 @@
+$header-theme: #ece1fa;
+$logo-theme: #ece1fa;
+$button-theme: #a990fb;
+$button-hover-theme: #8c6cf7;
+
+@mixin header() {
+    /* padding: 2rem 10%; */
+    margin: 2rem 10%;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid $header-theme;
+}
+
+@mixin logo() {
+    font-size: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    color: $logo-theme;
+}
+
+@mixin button() {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: $button-theme;
+    color: #2a2630;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+@mixin button-hover() {
+    background-color: $button-hover-theme;
+}
+
+.header {
+    @include header;
+}
+
+.logo {
+    @include logo;
+}
+
+.button {
+    @include button;
+}
+
+.button:hover {
+    @include button-hover;
+}
