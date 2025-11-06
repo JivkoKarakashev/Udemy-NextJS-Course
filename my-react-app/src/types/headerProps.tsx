@@ -1,6 +1,6 @@
 interface HeaderProps {
     modalIsOpen: boolean,
-    toggleModal: (e: React.MouseEvent<HTMLButtonElement>) => void
+    onCreatePost: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export {

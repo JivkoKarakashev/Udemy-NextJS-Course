@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 
 import type { HeaderProps } from '../types/headerProps.tsx';
 
-const Header = ({ toggleModal }: HeaderProps) => {
+const Header = ({ onCreatePost }: HeaderProps) => {
     return (
         <header className={styles.header}>
             <h1 className={styles.logo}>
@@ -12,7 +12,7 @@ const Header = ({ toggleModal }: HeaderProps) => {
                 React Poster
             </h1>
             <p>
-                <button className={styles.button} onClick={toggleModal}>
+                <button type="button" className={styles.button} onClick={onCreatePost}>
                     <MdPostAdd size={18} />
                     New Post
                 </button>

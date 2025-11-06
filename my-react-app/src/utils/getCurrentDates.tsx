@@ -3,8 +3,8 @@ import type { PostDate } from "../types/postProps.tsx";
 const getCurrentDates = (): PostDate => {
   const today = new Date();
 
-  // Format: YYYY-MM-DD
-  const iso = today.toISOString().split('T')[0];
+  //ISO date Format: YYYY-MM-DDTHH:mm:ss
+  const iso = today.toISOString();
 
   // Format: Month DD, YYYY
   const options: Intl.DateTimeFormatOptions = {

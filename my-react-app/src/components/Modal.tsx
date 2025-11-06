@@ -4,10 +4,10 @@ import styles from "./Modal.module.scss";
 
 import type { ModalProps } from "../types/modalProps";
 
-const Modal = ({ isOpen, toggleModal, children }: ModalProps): ReactElement => {
+const Modal = ({ isOpen, onCloseModal, children }: ModalProps): ReactElement => {
     return (
         <>
-            <div className={styles.backdrop} onClick={(e) => toggleModal(e)}></div>
+            <div className={styles.backdrop} onClick={(e) => onCloseModal(e)}></div>
             <dialog open={isOpen} className={styles.modal}>
                 {children}
             </dialog>

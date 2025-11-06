@@ -1,18 +1,18 @@
 import type { ReactElement } from "react";
 
 import styles from "./Post.module.scss";
-import type { PostProps } from "../types/postProps";
+import type { PostProps } from "../types/postProps.tsx";
 
-const Post = (props: PostProps): ReactElement => {
+const Post = ({ title, text, date, author }: PostProps): ReactElement => {
 
     return (
         <li>
             <article className={styles.article}>
-                <h3 className={styles.title}>{props.title}</h3>
-                <p className={styles.text}>{props.text}</p>
+                <h3 className={styles.title}>{title}</h3>
+                <p className={styles.text}>{text}</p>
                 <footer className={styles.footer}>
-                    <p>Published on: <time dateTime="2025-11-04">November 4, 2025</time></p>
-                    <p>Author: {props.author}</p>
+                    <p>Published on: <time dateTime={date.iso}>{date.long}</time></p>
+                    <p>Author: {author}</p>
                 </footer>
             </article>
         </li>

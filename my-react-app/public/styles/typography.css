@@ -1,11 +1,11 @@
 html {
     box-sizing: border-box;
-    font: 14px "Courier New", monospace;
+    font: 14px "Inter", "Avenir", "Helvetica", "Arial", sans-serif;;
 }
 
 body {
     /* background-color: #020618; */
-    background-color: #e6ddf9;
+    background-color: #532dc7;
     color: #d1d5db;
     min-height: 75vh;
 }

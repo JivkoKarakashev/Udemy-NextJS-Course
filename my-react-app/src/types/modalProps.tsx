@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 interface ModalProps {
     isOpen: boolean,
-    toggleModal: (e: React.MouseEvent<HTMLDivElement>) => void,
+    onCloseModal: (e?: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => void,
     children?: ReactNode
 }
 
