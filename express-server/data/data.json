@@ -1,1 +1,44 @@
-{"posts":[{"title":"Reactive Form","text":"React Forms are awesome!","date":"2025-11-06","author":"Jivko","_id":"afa9c339-d2bb-4c46-b774-aade9814ff24"},{"_id":"aee28df9-46e4-4efa-8071-2c69b64b805e","title":"React.js","text":"React.js is Awesome!","date":{"iso":"2025-11-04","long":"November 4, 2025"},"author":"John"},{"_id":"6220a1fe-f461-41a4-b4bf-5719550c6a3d","title":"Next.js","text":"Next.js is Awesome!","date":{"iso":"2025-11-04","long":"November 4, 2025"},"author":"Peter"}]}
+{
+    "posts": [
+        {
+            "_id": "9b4312f1-d536-4a93-a345-062d12437014",
+            "title": "Top Gun 3",
+            "text": "Great movie!",
+            "date": {
+                "iso": "2025-11-09T21:45:40.414Z",
+                "long": "November 9, 2025"
+            },
+            "author": "George"
+        },
+        {
+            "_id": "4a8a6d1d-0098-483c-a6fd-5a757d4bba5b",
+            "title": "Reactive Form",
+            "text": "React forms are awesome!",
+            "date": {
+                "iso": "2025-11-09T21:45:16.513Z",
+                "long": "November 9, 2025"
+            },
+            "author": "Jivko"
+        },
+        {
+            "_id": "aee28df9-46e4-4efa-8071-2c69b64b805e",
+            "title": "React.js",
+            "text": "React.js is Awesome!",
+            "date": {
+                "iso": "2025-11-04",
+                "long": "November 4, 2025"
+            },
+            "author": "John"
+        },
+        {
+            "_id": "6220a1fe-f461-41a4-b4bf-5719550c6a3d",
+            "title": "Next.js",
+            "text": "Next.js is Awesome!",
+            "date": {
+                "iso": "2025-11-04",
+                "long": "November 4, 2025"
+            },
+            "author": "Peter"
+        }
+    ]
+}

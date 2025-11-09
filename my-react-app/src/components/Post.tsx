@@ -1,12 +1,12 @@
 import type { ReactElement } from "react";
 
 import styles from "./Post.module.scss";
-import type { PostProps } from "../types/postProps.tsx";
+import type { DBPost } from "../types/post.tsx";
 
-const Post = ({ title, text, date, author }: PostProps): ReactElement => {
+const Post = ({ title, text, date, author }: DBPost): ReactElement => {
 
     return (
-        <li>
+        <li className={styles['article-wrapper']}>
             <article className={styles.article}>
                 <h3 className={styles.title}>{title}</h3>
                 <p className={styles.text}>{text}</p>

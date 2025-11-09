@@ -1,9 +1,16 @@
-@mixin article($theme: #9c7eee) {
-    padding: 1em 1.5em;
+@mixin article-wrapper () {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1em;
+    min-height: 100%;
+}
+
+@mixin article($theme: #9c7eee) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    min-height: 100%;
+    padding: 1em 1.5em;
 
     background-color: $theme;
     border-radius: 8px;
@@ -35,21 +42,26 @@
     letter-spacing: 1px;
 }
 
-.article {
-    @include article;
+.article-wrapper {
+    @include article-wrapper;
 
-    .title {
-        @include title;
-    }
+    .article {
+        @include article;
 
-    .text {
-        @include text;
-    }
+        .title {
+            @include title;
+        }
 
-    .footer {
-        @include footer;
+        .text {
+            @include text;
+        }
+
+        .footer {
+            @include footer;
+        }
     }
 }
+
 
 @keyframes animate-in {
     from {

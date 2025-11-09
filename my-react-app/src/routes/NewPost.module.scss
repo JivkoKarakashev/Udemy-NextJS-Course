@@ -67,15 +67,16 @@ $button-color-theme: #e5d5f7;
         @include button;
     }
 
-    button:hover {
+    .button:hover {
         background-color: #23014a;
     }
 
-    button[type='button'] {
+    .cancel {
+        text-decoration: none;
         background-color: transparent;
     }
 
-    button[type='button']:hover {
+    .cancel:hover {
         color: #d1bee6;
     }
 }

@@ -1,6 +1,6 @@
-import type { PostDate } from "../types/postProps.tsx";
+import type { PostDate } from "../types/post.tsx";
 
-const getCurrentDates = (): PostDate => {
+const getDateStamp = (): PostDate => {
   const today = new Date();
 
   //ISO date Format: YYYY-MM-DDTHH:mm:ss
@@ -21,5 +21,5 @@ const getCurrentDates = (): PostDate => {
 }
 
 export {
-  getCurrentDates
+  getDateStamp
 }

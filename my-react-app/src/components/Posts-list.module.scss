@@ -1,11 +1,17 @@
 $no-posts-theme: #fff;
 
-@mixin post-wrapper() {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1em;
+@mixin posts-wrapper() {
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: flex-start;
+    // align-items: stretch;
+    // gap: 1em;
+    min-width: 100%;
+    padding: 4em;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2em;
+    align-items: stretch;
 }
 
 @mixin no-posts() {
@@ -17,7 +23,7 @@ $no-posts-theme: #fff;
 }
 
 .posts-wrapper {
-    @include post-wrapper;
+    @include posts-wrapper;
 }
 
 .no-posts {

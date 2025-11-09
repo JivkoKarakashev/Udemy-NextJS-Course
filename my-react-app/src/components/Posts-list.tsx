@@ -1,37 +1,36 @@
-import { useState, type ReactElement } from "react";
+import { useState, type ReactElement, useEffect } from "react";
 
 import styles from "./Posts-list.module.scss";
 
-import type { ModalProps } from "../types/modalProps.tsx";
-import { postsInitState, type NewPostData } from "../types/postProps.tsx";
-
-import Modal from "./Modal.tsx";
-import NewPost from "./NewPost.tsx";
 import Post from "./Post.tsx";
+import Loader from "./Loader.tsx";
+import { usePostsStore } from "../store/postsStore.ts";
 
-const PostsList = ({ isOpen, onCloseModal }: ModalProps): ReactElement => {
-    const [posts, setPosts] = useState(postsInitState);
+const PostsList = (): ReactElement => {
+    const { posts, fetchPosts } = usePostsStore();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
-    const addPostHandler = (postData: NewPostData) => {
-        setPosts((prev) => {
-            const updated = [...prev, { ...postData }];
-            return updated.sort((a, b) => b.date.iso.localeCompare(a.date.iso));
-        });
-    };
+    useEffect(() => {
+        fetchPosts()
+            .then(() => setIsLoading(false))
+            .catch(err => {
+                setIsLoading(false);
+                console.error('Error on fetch all posts!', err);
+                alert('Error on fetch all posts!');
+            });
+    }, [fetchPosts]);
 
     return (
         <>
-            {isOpen && (
-                <Modal isOpen={isOpen} onCloseModal={onCloseModal}>
-                    <NewPost onCancel={onCloseModal} onAddPost={addPostHandler} />
-                </Modal>
+            {isLoading && (
+                <Loader />
             )}
-            {posts.length > 0 && (
+            {!isLoading && posts.length > 0 && (
                 <ul className={styles['posts-wrapper']}>
                     {posts.map((post) => <Post {...post} key={post.title} />)}
                 </ul>
             )}
-            {posts.length === 0 && (
+            {!isLoading && posts.length === 0 && (
                 <div className={styles['no-posts']}>
                     <h2>There are no posts yet.</h2>
                     <p>Be the first to add some!</p>

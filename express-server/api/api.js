@@ -10,7 +10,7 @@ async function getStoredPosts() {
   return storedPosts;
 }
 
-function storePosts(posts) {
+async function storePosts(posts) {
   return fs.writeFile(filePath, JSON.stringify({ posts: posts || [] }));
 }
 
