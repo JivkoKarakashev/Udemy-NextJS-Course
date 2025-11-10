@@ -1,0 +1,75 @@
+$title-theme: #2a1347;
+$text-theme: #593884;
+$author-footer-theme: #000;
+
+@mixin details() {
+    padding: 1em;
+    width: 30em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+@mixin title() {
+    font-size: 1.25em;
+    color: $title-theme;
+    font-weight: 600;
+}
+
+@mixin text() {
+    white-space: pre-wrap;
+    font-size: 1.25em;
+    margin: 0.25em 0 0 0;
+    color: $text-theme;
+    font-style: italic;
+}
+
+@mixin footer() {
+    display: flex;
+    flex-direction: column;
+    gap: .25em;
+
+    font-size: 0.8em;
+    font-weight: bold;
+    color: $author-footer-theme;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@mixin author() {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: $author-footer-theme;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+@mixin button() {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.details {
+    @include details;
+
+    .title {
+        @include title;
+    }
+
+    .text {
+        @include text;
+    }
+
+    .footer {
+        @include footer;
+
+        .author {
+            @include author;
+        }
+    }
+
+    .button {
+        @include button;
+    }
+}

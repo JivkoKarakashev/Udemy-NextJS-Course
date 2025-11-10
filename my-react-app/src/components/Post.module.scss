@@ -1,7 +1,11 @@
-@mixin article-wrapper () {
+@mixin article-wrapper() {
     display: flex;
     flex-direction: column;
     min-height: 100%;
+}
+
+@mixin link-decoration() {
+    text-decoration: none;
 }
 
 @mixin article($theme: #9c7eee) {
@@ -30,20 +34,12 @@
     font-style: italic;
 }
 
-@mixin footer($theme: #543280) {
-    display: flex;
-    flex-direction: column;
-    gap: .25em;
-
-    font-size: 0.8em;
-    font-weight: bold;
-    color: $theme;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
 .article-wrapper {
     @include article-wrapper;
+
+    .link {
+        @include link-decoration;
+    }
 
     .article {
         @include article;
@@ -56,9 +52,6 @@
             @include text;
         }
 
-        .footer {
-            @include footer;
-        }
     }
 }
 

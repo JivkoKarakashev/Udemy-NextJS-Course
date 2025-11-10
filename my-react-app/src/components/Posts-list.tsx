@@ -23,11 +23,11 @@ const PostsList = (): ReactElement => {
     return (
         <>
             {isLoading && (
-                <Loader />
+                <Loader text='posts' />
             )}
             {!isLoading && posts.length > 0 && (
                 <ul className={styles['posts-wrapper']}>
-                    {posts.map((post) => <Post {...post} key={post.title} />)}
+                    {posts.map((post) => <Post {...post} key={post._id} />)}
                 </ul>
             )}
             {!isLoading && posts.length === 0 && (

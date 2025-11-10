@@ -36,7 +36,7 @@ const NewPost = (): ReactElement => {
     return (
         <>
             <Modal>
-                <form className={styles.form} onSubmit={(e) => submitHandler(e)}>
+                <form className={styles.form} method='post' onSubmit={(e) => submitHandler(e)}>
                     <p>
                         <label className={styles.label} htmlFor="title">Title</label>
                         <input className={styles.input} type="text" name="title" id='title' data-field='title' value={formState.title} onChange={(e) => onFieldChange(e)} required />

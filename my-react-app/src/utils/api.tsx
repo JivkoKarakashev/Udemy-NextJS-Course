@@ -30,7 +30,21 @@ const createPost = async (post: AddPostData): Promise<DBPost> => {
         .catch(err => { throw err });
 };
 
+const getPostById = async (id: string): Promise<DBPost> => {
+    const options: RequestInit = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors'
+    };
+
+    return fetch(`${API_URL}/${id}`, options)
+        .then(res => res.json())
+        .then(({ post }) => post)
+        .catch(err => { throw err });
+};
+
 export {
     getAllPosts,
-    createPost
+    createPost,
+    getPostById
 }

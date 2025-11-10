@@ -27,6 +27,7 @@ app.get('/posts', async (req, res) => {
 app.get('/posts/:id', async (req, res) => {
   const storedPosts = await getStoredPosts();
   const post = storedPosts.find((post) => post._id === req.params.id);
+  await new Promise((resolve, _reject) => setTimeout(() => resolve(), 1500));
   res.json({ post });
 });
 
