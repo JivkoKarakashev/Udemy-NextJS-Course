@@ -1,10 +1,12 @@
+import type { ReactElement } from "react";
+
 import styles from "./Loader.module.scss";
 
 interface LoaderProps {
     text: string
 }
 
-const Loader = ({ text }: LoaderProps) => {
+const Loader = ({ text }: LoaderProps): ReactElement => {
     return (
         <div className={styles['loader-wrapper']}>
             <span className={styles.loader} />

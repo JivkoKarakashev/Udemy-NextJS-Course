@@ -1,9 +1,10 @@
+import type { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { MdPostAdd, MdMessage } from 'react-icons/md';
 
 import styles from './Header.module.scss';
 
-const Header = () => {
+const Header = (): ReactElement => {
 
     return (
         <header className={styles.header}>

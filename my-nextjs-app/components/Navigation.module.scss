@@ -1,0 +1,28 @@
+@mixin ul-navbar() {
+    display: flex;
+    gap: 1em;
+    max-width: 40%;
+}
+
+@mixin link() {
+    flex: 1 1 30%;
+    cursor: pointer;
+    padding: .25em 0;
+    text-align: center;
+    text-decoration: none;
+    list-style-type: none;
+    text-transform: uppercase;
+    background-color: #282c34;
+    color: #fff;
+    border: 1px solid rgba(0, 0, 0, .01);
+    border-radius: 5px;
+}
+
+
+.ul-navbar {
+    @include ul-navbar;
+
+    .link {
+        @include link;
+    }
+}

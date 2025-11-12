@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import styles from './PostDetails.module.scss';
@@ -9,7 +9,7 @@ import Modal from '../components/Modal.tsx';
 import { getPostById } from '../utils/api.tsx';
 import { useModalStore } from '../store/modalStore.ts';
 
-function PostDetails() {
+const PostDetails = (): ReactElement => {
     const { id } = useParams();
     const { toggleModal } = useModalStore();
     const [details, setDetails] = useState<DBPost | null>(null);

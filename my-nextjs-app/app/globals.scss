@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Montserrat:wght@400;700&display=swap');
+
+@mixin html() {
+  font-family: 'Quicksand', sans-serif;
+}
+
+@mixin body() {
+  margin: 0;
+  background: radial-gradient(#282c34, #282c34);
+}
+
+@mixin header-background() {
+  position: absolute;
+  width: 100%;
+  height: 320px;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@mixin image() {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@mixin not-found-error() {
+  margin-top: 5em;
+  text-align: center;
+}
+
+@mixin not-found-error-h1() {
+  font-size: 5em;
+  margin: 0px;
+  font-weight: 900;
+  color: #262626;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #f9572a, #ffc905);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+@mixin not-found-error-p() {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #ddd8d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  @include html;
+}
+
+body {
+  @include body;
+}
+
+.header-background {
+  @include header-background;
+}
+
+.image {
+  @include image;
+}
+
+.not-found,
+.error {
+  @include not-found-error;
+
+  h1 {
+    @include not-found-error-h1;
+  }
+
+  p {
+    @include not-found-error-p;
+  }
+}
