@@ -9,21 +9,6 @@
   background: radial-gradient(#282c34, #282c34);
 }
 
-@mixin header-background() {
-  position: absolute;
-  width: 100%;
-  height: 320px;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-@mixin image() {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 @mixin not-found-error() {
   margin-top: 5em;
   text-align: center;
@@ -59,14 +44,6 @@ html {
 
 body {
   @include body;
-}
-
-.header-background {
-  @include header-background;
-}
-
-.image {
-  @include image;
 }
 
 .not-found,

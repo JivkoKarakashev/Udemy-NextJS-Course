@@ -1,0 +1,63 @@
+$logo-theme: #ddd6cb;
+
+@mixin logo() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    text-decoration: none;
+    color: $logo-theme;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+@mixin img() {
+    width: 5em;
+    height: 5em;
+    object-fit: contain;
+    filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+}
+
+@mixin header() {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em 1em;
+}
+
+@mixin nav() {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 1.5em;
+        font-size: 1.25em;
+    }
+}
+
+.header {
+    @include header;
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 2em 10%;
+    }
+}
+
+.nav {
+    @include nav;
+}
+
+
+.logo {
+    @include logo;
+
+    .img {
+        @include img;
+    }
+}
