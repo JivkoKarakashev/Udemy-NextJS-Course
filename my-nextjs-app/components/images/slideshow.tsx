@@ -9,16 +9,17 @@ import { slideshowImages } from "../../constants/slideshowImages.ts";
 const Slideshow = (): ReactElement => {
     const [currImgIdx, setCurrImgIdx] = useState(0);
     const images = [...slideshowImages];
+    const arrLength = images.length;
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrImgIdx((prevIdx) =>
-                prevIdx < images.length - 1 ? prevIdx + 1 : 0
+                prevIdx < arrLength - 1 ? prevIdx + 1 : 0
             );
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [arrLength]);
 
     return (
         <div className={styles.slideshow}>
