@@ -2,11 +2,11 @@ import { ReactElement } from "react";
 
 import styles from './loading.module.scss';
 
-const Loader = (): ReactElement => {
+const Loader = ({ content }: { content: string }): ReactElement => {
     return (
         <div className={styles['loader-wrapper']}>
             <span className={styles.loader} />
-            <span className={styles['loading-text']}>Loading meals...</span>
+            <span className={styles['loading-text']}>{content}</span>
         </div>
     );
 };

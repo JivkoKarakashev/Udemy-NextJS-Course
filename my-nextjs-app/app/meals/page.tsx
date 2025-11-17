@@ -1,13 +1,19 @@
-import { ReactElement } from "react";
+import { ReactElement, Suspense } from "react";
 import Link from "next/link";
-
 import styles from './page.module.scss';
+
 import MealsGrid from "../../components/meals/meals-grid";
+import Loader from '../../components/loader/loading.tsx';
 import { getAllMeals } from "../../lib/meals.ts";
 
 const Meals = async (): Promise<ReactElement> => {
     const meals = await getAllMeals();
+    return (
+        <MealsGrid meals={meals} />
+    );
+};
 
+const MealsPage = (): ReactElement => {
     return (
         <>
             <header className={styles.header}>
@@ -18,10 +24,12 @@ const Meals = async (): Promise<ReactElement> => {
                 </p>
             </header>
             <main className={styles.main}>
-                <MealsGrid meals={meals} />
+                <Suspense fallback={<Loader content='Loading meals...' />}>
+                    <Meals />
+                </Suspense>
             </main>
         </>
     );
 }
 
-export default Meals;
+export default MealsPage;

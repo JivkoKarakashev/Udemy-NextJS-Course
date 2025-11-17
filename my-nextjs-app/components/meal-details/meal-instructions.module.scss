@@ -1,0 +1,15 @@
+@mixin row() {
+    margin: 0;
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        font-style: italic;
+    }
+}
+
+.row {
+    @include row;
+}
