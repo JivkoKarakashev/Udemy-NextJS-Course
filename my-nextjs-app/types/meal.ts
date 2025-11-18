@@ -1,4 +1,4 @@
-interface Meal {
+interface DBMeal {
     id: number,
     slug: string,
     title: string,
@@ -9,9 +9,14 @@ interface Meal {
     creator_email: string
 }
 
-type MealInsert = Omit<Meal, 'id'>;
+type MealInsert = Omit<DBMeal, 'id'>;
+
+interface MealShare extends Omit<MealInsert, 'image'> {
+    image: File
+}
 
 export {
-    type Meal,
-    type MealInsert
+    type DBMeal,
+    type MealInsert,
+    type MealShare
 }

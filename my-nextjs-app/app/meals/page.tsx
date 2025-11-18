@@ -4,7 +4,7 @@ import styles from './page.module.scss';
 
 import MealsGrid from "../../components/meals/meals-grid";
 import Loader from '../../components/loader/loading.tsx';
-import { getAllMeals } from "../../lib/meals.ts";
+import { getAllMeals } from "../../lib/api.ts";
 
 const Meals = async (): Promise<ReactElement> => {
     const meals = await getAllMeals();

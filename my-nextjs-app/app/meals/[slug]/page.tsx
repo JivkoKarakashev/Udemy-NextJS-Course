@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import styles from './page.module.scss';
 
-import { getMealBySlug } from "../../../lib/meals.ts";
+import { getMealBySlug } from "../../../lib/api.ts";
 import MealInstructions from "../../../components/meal-details/meal-instructions.tsx";
 import Loader from "../../../components/loader/loading.tsx";
 
