@@ -48,7 +48,7 @@ const createMeal = async (meal: MealShare) => {
                 )
     `);
     const info = stmt.run(mealInsert);
-    console.log(info.changes);
+    // console.log(info.changes);
 };
 
 export {
