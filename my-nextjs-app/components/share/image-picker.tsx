@@ -5,7 +5,9 @@ import Image from 'next/image';
 
 import styles from './image-picker.module.scss';
 
-const ImagePicker = ({ label }: { label: string }) => {
+import ShareMealFormFieldError from './share-form-field-error.tsx';
+
+const ImagePicker = ({ label, valid, message }: { label: string, valid: boolean, message: string }) => {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const imgInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -46,6 +48,7 @@ const ImagePicker = ({ label }: { label: string }) => {
                     onChange={onImageChange}
                     required
                 />
+                {!valid && (<ShareMealFormFieldError message={message} />)}
                 <button className={styles.button} type="button" onClick={onImageUpload}>Upload an Image</button>
             </div>
         </div>

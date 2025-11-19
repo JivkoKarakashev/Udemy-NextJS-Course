@@ -1,0 +1,25 @@
+@mixin invalid() {
+    animation: shake .5s ease-in-out 0s 5;
+}
+
+.invalid {
+    @include invalid;
+}
+
+@keyframes shake {
+    0% {
+        margin-left: 0rem;
+    }
+
+    25% {
+        margin-left: 0.5rem;
+    }
+
+    75% {
+        margin-left: -0.5rem;
+    }
+
+    100% {
+        margin-left: 0rem;
+    }
+}
