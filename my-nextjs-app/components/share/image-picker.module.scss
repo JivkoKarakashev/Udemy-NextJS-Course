@@ -1,3 +1,5 @@
+@use '../../public/styles/shared/invalid.scss' as invalid;
+
 @mixin picker() {
     .button {
         border: 0;
@@ -24,6 +26,7 @@
         display: none;
     }
 }
+
 
 @mixin preview() {
     width: 10rem;
@@ -55,6 +58,8 @@
         .preview {
             @include preview;
         }
+
+        @include invalid.invalid;
     }
 
 }

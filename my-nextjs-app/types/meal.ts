@@ -15,8 +15,15 @@ interface MealShare extends Omit<MealInsert, 'image'> {
     image: File
 }
 
+interface ImagePersistState {
+    imgUrl: string | null,
+    imgFile: File | null
+}
+
+
 export {
     type DBMeal,
     type MealInsert,
-    type MealShare
+    type MealShare,
+    type ImagePersistState
 }

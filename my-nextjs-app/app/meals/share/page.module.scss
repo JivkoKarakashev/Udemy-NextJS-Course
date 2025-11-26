@@ -1,3 +1,5 @@
+@use '../../../public/styles/shared/invalid.scss' as invalid;
+
 @mixin header() {
     gap: 3rem;
     margin: 3rem auto 5rem auto;
@@ -55,6 +57,11 @@
     textarea:focus {
         outline-color: #f99f2a;
         background-color: #1f252d;
+    }
+
+    input.invalid,
+    textarea.invalid {
+        @include invalid.invalid;
     }
 
     .row {

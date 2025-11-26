@@ -1,44 +1,44 @@
-type ShareMealFieldName = 'title' | 'image' | 'summary' | 'instructions' | 'creator' | 'creator_email';
-
-interface ShareMealFieldState {
+interface FieldState {
     valid: boolean,
+    value: string,
     error_message: string
 }
 
-type ShareMealFormState = {
-    [K in ShareMealFieldName]: ShareMealFieldState
+interface FormState {
+    title: FieldState,
+    image: Omit<FieldState, 'value'>,
+    summary: FieldState,
+    instructions: FieldState,
+    creator: FieldState,
+    creator_email: FieldState
 }
 
-const shareMealFormStateInit: ShareMealFormState = {
-    title: {
-        valid: true,
-        error_message: ''
-    },
-    image: {
-        valid: true,
-        error_message: ''
-    },
-    summary: {
-        valid: true,
-        error_message: '',
-    },
-    instructions: {
-        valid: true,
-        error_message: ''
-    },
-    creator: {
-        valid: true,
-        error_message: ''
-    },
-    creator_email: {
-        valid: true,
-        error_message: ''
-    }
+interface PersistState {
+    validState: 'initial' | boolean,
+    formState: FormState
+}
+
+type FieldType = keyof FormState;
+
+const fieldStateInit: FieldState = {
+    valid: true,
+    value: '',
+    error_message: ''
+}
+
+const formStateInit: FormState = {
+    title: { ...fieldStateInit },
+    image: { ...fieldStateInit },
+    summary: { ...fieldStateInit },
+    instructions: { ...fieldStateInit },
+    creator: { ...fieldStateInit },
+    creator_email: { ...fieldStateInit }
 }
 
 export {
-    type ShareMealFieldName,
-    type ShareMealFieldState,
-    type ShareMealFormState,
-    shareMealFormStateInit
+    type FieldState,
+    type FormState,
+    type FieldType,
+    type PersistState,
+    formStateInit
 }

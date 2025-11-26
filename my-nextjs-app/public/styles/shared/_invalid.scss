@@ -1,0 +1,22 @@
+@mixin invalid {
+
+    &.invalid,
+    .invalid {
+        border: 2px solid #ff4d4f;
+        animation: borderPulse 1s ease 5;
+    }
+}
+
+@keyframes borderPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
