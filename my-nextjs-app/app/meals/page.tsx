@@ -1,10 +1,17 @@
 import { ReactElement, Suspense } from "react";
+import { Metadata } from "next";
 import Link from "next/link";
+
 import styles from './page.module.scss';
 
-import MealsGrid from "../../components/meals/meals-grid";
+import MealsGrid from "../../components/meals/meals-grid.tsx";
 import Loader from '../../components/loader/loading.tsx';
 import { getAllMeals } from "../../lib/api.ts";
+
+export const metadata: Metadata = {
+    title: "All Meals",
+    description: "Browse the delicious meals shared by our vibrant community."
+  };
 
 const Meals = async (): Promise<ReactElement> => {
     const meals = await getAllMeals();

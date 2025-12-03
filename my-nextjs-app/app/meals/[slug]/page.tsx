@@ -1,12 +1,26 @@
 import { ReactElement, Suspense } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 import styles from './page.module.scss';
 
 import { getMealBySlug } from "../../../lib/api.ts";
 import MealInstructions from "../../../components/meal-details/meal-instructions.tsx";
 import Loader from "../../../components/loader/loading.tsx";
+
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> => {
+    const { slug } = await params;
+    const meal = await getMealBySlug(slug);
+    if (meal === undefined) {
+        notFound();
+    }
+    const { title, summary } = meal;
+    return {
+        title,
+        description: summary
+    }
+};
 
 const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
     const { slug } = await params;
