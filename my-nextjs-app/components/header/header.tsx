@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./header.module.scss";
-import logoImg from "../../assets/logo.png";
+
 import HeaderBackground from "./header-background.tsx";
 import NavLink from "./nav-link.tsx";
 
@@ -15,8 +15,11 @@ const Header = (): ReactElement => {
                 <Link className={styles.logo} href='/'>
                     <Image
                         className={styles.img}
-                        src={logoImg} alt="Plate with food"
-                        priority
+                        src='https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/logo.png'
+                        width={120}
+                        height={120}
+                        alt="Plate with food"
+                        unoptimized
                         loading="eager"
                     />
                     NextLevel Food

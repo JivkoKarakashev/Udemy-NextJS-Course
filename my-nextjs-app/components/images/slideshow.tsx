@@ -26,9 +26,11 @@ const Slideshow = (): ReactElement => {
             {images.map((img, idx) => (
                 <Image
                     key={idx}
-                    src={img.img}
-                    className={idx === currImgIdx ? styles.active : ''}
+                    src={img.imgUrl}
                     alt={img.alt}
+                    unoptimized
+                    fill
+                    className={idx === currImgIdx ? styles.active : ''}
                 />
             ))}
         </div>

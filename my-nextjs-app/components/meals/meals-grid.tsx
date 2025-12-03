@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
 
 import styles from './meals-grid.module.scss';
-import { Meal } from "../../types/meal";
-import MealItem from "./meal-item";
+import { DBMeal } from "../../types/meal.ts";
+import MealItem from "./meal-item.tsx";
 
-const MealsGrid = ({ meals }: { meals: Meal[] }): ReactElement => {
+const MealsGrid = ({ meals }: { meals: DBMeal[] }): ReactElement => {
     return (
         <ul className={styles.meals}>
             {meals.map(meal => (

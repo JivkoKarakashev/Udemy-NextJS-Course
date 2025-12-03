@@ -21,15 +21,33 @@ const Community = (): ReactElement => {
 
                 <ul className={styles.perks}>
                     <li>
-                        <Image src={mealIcon.img} alt={mealIcon.alt} />
+                        <Image
+                            src={mealIcon.imgUrl}
+                            alt={mealIcon.alt}
+                            unoptimized
+                            width={128}
+                            height={128}
+                        />
                         <p>Share & discover recipes</p>
                     </li>
                     <li>
-                        <Image src={communityIcon.img} alt={communityIcon.alt} />
+                        <Image
+                            src={communityIcon.imgUrl}
+                            alt={communityIcon.alt}
+                            unoptimized
+                            width={128}
+                            height={128}
+                        />
                         <p>Find new friends & like-minded people</p>
                     </li>
                     <li>
-                        <Image src={eventsIcon.img} alt={eventsIcon.alt} />
+                        <Image
+                            src={eventsIcon.imgUrl}
+                            alt={eventsIcon.alt}
+                            unoptimized
+                            width={128}
+                            height={128}
+                        />
                         <p>Participate in exclusive events</p>
                     </li>
                 </ul>

@@ -3,14 +3,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './meal-item.module.scss';
-import { Meal } from '../../types/meal';
+import { DBMeal } from '../../types/meal.ts';
 
-const MealItem = ({ title, slug, image, summary, creator }: Meal): ReactElement => {
+const MealItem = ({ title, slug, imageUrl, summary, creator }: DBMeal): ReactElement => {
     return (
         <article className={styles.meal}>
             <header>
                 <div className={styles.image}>
-                    <Image src={image} alt={title} fill />
+                    <Image 
+                    src={imageUrl} 
+                    alt={title}
+                    unoptimized 
+                    fill />
                 </div>
                 <div className={styles.headerText}>
                     <h2>{title}</h2>

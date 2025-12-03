@@ -1,7 +1,6 @@
 'use client';
 
 import { ChangeEvent, ReactElement, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import styles from './page.module.scss';
 
@@ -21,7 +20,6 @@ const Share = (): ReactElement => {
 
     const [persistState, setPersistState] = useState<PersistState>({ validState: 'initial', formState: formStateInit });
     const [shakeTrigger, setshakeTrigger] = useState<number>(0);
-    const router = useRouter();
 
     const formFieldStateUpdate = (nextFieldState: FieldState, field: FieldType) => {
         setPersistState(({ validState, formState }) => {
@@ -84,9 +82,6 @@ const Share = (): ReactElement => {
             });
             setshakeTrigger(prev => prev + 1);
             // console.log(persistState);
-        }
-        if (validState !== 'initial' && validState) {
-            router.push('/meals');
         }
     };
 

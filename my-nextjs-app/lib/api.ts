@@ -1,7 +1,8 @@
 import sql from 'better-sqlite3';
-import fs from 'node:fs';
+import B2 from 'backblaze-b2';
 
 import { DBMeal, MealInsert, MealShare } from '../types/meal.ts';
+import { B2UploadFileResponse, B2UploadUrlResponse, UploadImageResponse } from '../types/b2-bucket.ts';
 
 const db = sql('meals.db');
 
@@ -22,25 +23,18 @@ const getMealBySlug = async (slug: string): Promise<DBMeal | undefined> => {
 };
 
 const createMeal = async (meal: MealShare) => {
-    const extension = meal.image.name.split('.').pop();
-    // console.log(extension);
-    const fileName = `${meal.slug}.${extension}`;
-    // console.log(fileName);
-    const stream = fs.createWriteStream(`public/images/${fileName}`);
-    const bufferedImage = await meal.image.arrayBuffer();
-    stream.write(Buffer.from(bufferedImage), (error) => {
-        if (error) {
-            throw new Error('Saving image has failed!');
-        }
-    });
-    const mealInsert: MealInsert = { ...meal, image: `/images/${fileName}` };
+    const { imageUrl, imageFileName, imageFileId } = await uploadImage(meal.image);
+    // console.log({ imageUrl, imageFileName, imageFileId });
+    const mealInsert: MealInsert = { ...meal, imageUrl, imageFileName, imageFileId };
     const stmt = db.prepare<MealInsert>(`
         INSERT INTO meals
-            (slug, title, image, summary, instructions, creator, creator_email)
+            (slug, title, imageUrl, imageFileName, imageFileId, summary, instructions, creator, creator_email)
                 VALUES (
                     @slug,
                     @title,
-                    @image,
+                    @imageUrl,
+                    @imageFileName,
+                    @imageFileId,
                     @summary,
                     @instructions,
                     @creator,
@@ -49,6 +43,35 @@ const createMeal = async (meal: MealShare) => {
     `);
     const info = stmt.run(mealInsert);
     console.log(info.changes);
+};
+
+const uploadImage = async (imgFile: File): Promise<UploadImageResponse> => {
+    const b2 = new B2({
+        applicationKeyId: process.env.B2_KEY_ID!,
+        applicationKey: process.env.B2_APP_KEY!
+    });
+
+    await b2.authorize();
+    const uploadUrlRes = await b2.getUploadUrl({ bucketId: process.env.B2_BUCKET_ID! });
+    const { uploadUrl, authorizationToken } = uploadUrlRes.data as B2UploadUrlResponse;
+    const extension = imgFile.name.split('.').pop();
+    const fName = `public/uploads/${crypto.randomUUID()}.${extension}`;
+    const arrBuffer = await imgFile.arrayBuffer();
+    const buffer = Buffer.from(arrBuffer);
+    const uploadFileRes = await b2.uploadFile({
+        uploadUrl,
+        uploadAuthToken: authorizationToken,
+        fileName: fName,
+        data: buffer,
+        mime: imgFile.type
+    });
+    const { fileName, fileId } = uploadFileRes.data as B2UploadFileResponse;
+    const imageUrl = `${process.env.CDN_BASE_URL}/${fileName}`;
+    return {
+        imageUrl,
+        imageFileName: fileName,
+        imageFileId: fileId
+    };
 };
 
 export {

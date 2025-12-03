@@ -5,7 +5,9 @@ const db = new Database('meals.db');
 interface MealInsert {
    slug: string,
    title: string,
-   image: string,
+   imageUrl: string,
+   imageFileName: string,
+   imageFileId: string,
    summary: string,
    instructions: string,
    creator: string,
@@ -16,7 +18,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Juicy Cheese Burger',
       slug: 'juicy-cheese-burger',
-      image: '/images/burger.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/burger.jpg',
+      imageFileName: 'public/images/burger.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f119a2f8353d1169f_d20251202_m085410_c003_v0312024_t0006_u01764665650708',
       summary:
          'A mouth-watering burger with a juicy beef patty and melted cheese, served in a soft bun.',
       instructions: `
@@ -38,7 +42,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Spicy Curry',
       slug: 'spicy-curry',
-      image: '/images/curry.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/curry.jpg',
+      imageFileName: 'public/images/curry.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f1033671fe545988a_d20251202_m085410_c003_v0312003_t0018_u01764665650946',
       summary:
          'A rich and spicy curry, infused with exotic spices and creamy coconut milk.',
       instructions: `
@@ -63,7 +69,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Homemade Dumplings',
       slug: 'homemade-dumplings',
-      image: '/images/dumplings.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/dumplings.jpg',
+      imageFileName: 'public/images/dumplings.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f10982341bb39ac9f_d20251202_m085411_c003_v0312022_t0031_u01764665651074',
       summary:
          'Tender dumplings filled with savory meat and vegetables, steamed to perfection.',
       instructions: `
@@ -85,7 +93,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Classic Mac n Cheese',
       slug: 'classic-mac-n-cheese',
-      image: '/images/macncheese.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/macncheese.jpg',
+      imageFileName: 'public/images/macncheese.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f119ef51359b87581_d20251202_m085411_c003_v0312012_t0022_u01764665651924',
       summary:
          "Creamy and cheesy macaroni, a comforting classic that's always a crowd-pleaser.",
       instructions: `
@@ -110,7 +120,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Authentic Pizza',
       slug: 'authentic-pizza',
-      image: '/images/pizza.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/pizza.jpg',
+      imageFileName: 'public/images/pizza.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f110b01adbbdf84a9_d20251202_m085412_c003_v0312034_t0032_u01764665652030',
       summary:
          'Hand-tossed pizza with a tangy tomato sauce, fresh toppings, and melted cheese.',
       instructions: `
@@ -132,7 +144,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Wiener Schnitzel',
       slug: 'wiener-schnitzel',
-      image: '/images/schnitzel.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/schnitzel.jpg',
+      imageFileName: 'public/images/schnitzel.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f10602b384ea28e9c_d20251202_m085412_c003_v0312023_t0055_u01764665652370',
       summary:
          'Crispy, golden-brown breaded veal cutlet, a classic Austrian dish.',
       instructions: `
@@ -154,7 +168,9 @@ const dummyMeals: MealInsert[] = [
    {
       title: 'Fresh Tomato Salad',
       slug: 'fresh-tomato-salad',
-      image: '/images/tomato-salad.jpg',
+      imageUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/tomato-salad.jpg',
+      imageFileName: 'public/images/tomato-salad.jpg',
+      imageFileId: '4_z6603df233eeddee294ad0214_f115868473d82cbfd_d20251202_m085412_c003_v0312034_t0037_u01764665652622',
       summary:
          'A light and refreshing salad with ripe tomatoes, fresh basil, and a tangy vinaigrette.',
       instructions: `
@@ -180,7 +196,9 @@ db.prepare(`
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        slug TEXT NOT NULL UNIQUE,
        title TEXT NOT NULL,
-       image TEXT NOT NULL,
+       imageUrl TEXT NOT NULL,
+       imageFileName TEXT NOT NULL,
+       imageFileId TEXT NOT NULL,
        summary TEXT NOT NULL,
        instructions TEXT NOT NULL,
        creator TEXT NOT NULL,
@@ -194,7 +212,9 @@ async function initData() {
          null,
          @slug,
          @title,
-         @image,
+         @imageUrl,
+         @imageFileName,
+         @imageFileId,
          @summary,
          @instructions,
          @creator,

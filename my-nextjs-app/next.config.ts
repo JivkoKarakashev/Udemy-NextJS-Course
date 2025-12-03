@@ -5,8 +5,19 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb'
+      bodySizeLimit: '10mb',
+      allowedOrigins: ['cdn-bucket.jivkokarakashev.work']
     }
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn-bucket.jivkokarakashev.work',
+        pathname: '/**'
+      },
+    ],
+    // unoptimized: true
   }
 };
 

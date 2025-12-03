@@ -1,7 +1,12 @@
-import { StaticImageData } from "next/image";
+// import { StaticImageData } from "next/image";
+
+// interface SlideshowImage {
+//     img: StaticImageData
+//     alt: string
+// }
 
 interface SlideshowImage {
-    img: StaticImageData
+    imgUrl: string
     alt: string
 }
 

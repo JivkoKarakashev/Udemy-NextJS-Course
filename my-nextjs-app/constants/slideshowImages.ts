@@ -1,21 +1,13 @@
 import { SlideshowImage } from '../types/image.ts';
 
-import burgerImg from '../assets/burger.jpg';
-import curryImg from '../assets/curry.jpg';
-import dumplingsImg from '../assets/dumplings.jpg';
-import macncheeseImg from '../assets/macncheese.jpg';
-import pizzaImg from '../assets/pizza.jpg';
-import schnitzelImg from '../assets/schnitzel.jpg';
-import tomatoSaladImg from '../assets/tomato-salad.jpg';
-
 const slideshowImages: SlideshowImage[] = [
-    { img: burgerImg, alt: 'A delicious, juicy burger' },
-    { img: curryImg, alt: 'A delicious, spicy curry' },
-    { img: dumplingsImg, alt: 'Steamed dumplings' },
-    { img: macncheeseImg, alt: 'Mac and cheese' },
-    { img: pizzaImg, alt: 'A delicious pizza' },
-    { img: schnitzelImg, alt: 'A delicious schnitzel' },
-    { img: tomatoSaladImg, alt: 'A delicious tomato salad' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/burger.jpg', alt: 'A delicious, juicy burger' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/curry.jpg', alt: 'A delicious, spicy curry' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/dumplings.jpg', alt: 'Steamed dumplings' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/macncheese.jpg', alt: 'Mac and cheese' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/pizza.jpg', alt: 'A delicious pizza' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/schnitzel.jpg', alt: 'A delicious schnitzel' },
+    { imgUrl: 'https://cdn-bucket.jivkokarakashev.work/file/next-level-food/public/images/tomato-salad.jpg', alt: 'A delicious tomato salad' },
 ];
 
 export {

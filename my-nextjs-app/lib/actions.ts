@@ -1,5 +1,8 @@
 'use server';
 
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+
 import { PersistState } from "../types/shareMeal-formState.ts";
 import { extractFormData } from "../utils/extractShareMealData.ts";
 import { validateForm } from "../utils/validateShareMealForm.ts";
@@ -13,13 +16,16 @@ const shareMeal = async (formData: FormData): Promise<PersistState> => {
     // console.log(slug, title, image, summary, instructions, creator, creator_email);
     const { validState, formState } = validateForm(meal);
     // console.log({ validState, formState });
-    if (validState) {
-        await createMeal(meal);
+    if (validState === 'initial' || validState === false) {
+        return {
+            validState,
+            formState
+        };
     }
-    return {
-        validState,
-        formState
-    };
+
+    await createMeal(meal);
+    revalidatePath('/meals');
+    redirect('/meals');
 };
 
 export {

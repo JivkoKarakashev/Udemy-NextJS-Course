@@ -14,13 +14,19 @@ const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promi
     if (meal === undefined) {
         notFound();
     }
-    const { image, title, creator_email, creator, summary, instructions } = meal;
+    const { imageUrl, title, creator_email, creator, summary, instructions } = meal;
 
     return (
         <>
             <header className={styles.header}>
                 <div className={styles.image}>
-                    <Image src={image} alt={title} fill />
+                    <Image
+                        src={imageUrl}
+                        alt={title}
+                        unoptimized
+                        width={480}
+                        height={320}
+                    />
                 </div>
                 <div className={styles.headerText}>
                     <h1>{title}</h1>
