@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 import { dummyNews } from "../../../constants/dummy-news.ts";
 
@@ -15,7 +16,14 @@ const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promi
     return (
         <article className="news-article">
             <header>
-                <img src={imageUrl} alt={title} />
+                <div className="img-wrapper">
+                    <Image
+                        src={imageUrl}
+                        alt={title}
+                        fill
+                        sizes="{max-width: 309px}"
+                    />
+                </div>
                 <h1>{title}</h1>
                 <time dateTime={date}>{date}</time>
             </header>

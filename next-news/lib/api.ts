@@ -9,7 +9,7 @@ const getLatestNews = (): News[] => {
     return dummyNews.slice(0, 3);
 };
 
-const getAvailableNewsYears = (): number[] => {
+const getAvailableYears = (): number[] => {
     const years: number[] = [];
     dummyNews.forEach(news => {
         const year = new Date(news.date).getFullYear();
@@ -20,7 +20,7 @@ const getAvailableNewsYears = (): number[] => {
     return years.sort((a, b) => b - a);
 };
 
-const getAvailableNewsMonths = (year: string): number[] => {
+const getAvailableMonthsByYear = (year: number): number[] => {
     const months: number[] = [];
     dummyNews.forEach(news => {
         const newsYear = new Date(news.date).getFullYear();
@@ -34,11 +34,11 @@ const getAvailableNewsMonths = (year: string): number[] => {
     return months.sort((a, b) => b - a);
 };
 
-const getNewsByYear = (year: string): News[] => {
+const getNewsByYear = (year: number): News[] => {
     return dummyNews.filter(news => new Date(news.date).getFullYear() === Number(year));
 };
 
-const getNewsByYearAndMonth = (year: string, month: string): News[] => {
+const getNewsByYearAndMonth = (year: number, month: number): News[] => {
     return dummyNews.filter(news => {
         const newsYear = new Date(news.date).getFullYear();
         const newsMonth = new Date(news.date).getMonth() + 1;
@@ -49,8 +49,8 @@ const getNewsByYearAndMonth = (year: string, month: string): News[] => {
 export {
     getAllNews,
     getLatestNews,
-    getAvailableNewsYears,
-    getAvailableNewsMonths,
+    getAvailableYears,
+    getAvailableMonthsByYear,
     getNewsByYear,
     getNewsByYearAndMonth
 }

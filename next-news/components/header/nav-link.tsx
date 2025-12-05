@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ReactElement, ReactNode } from "react";
 
-const NavLink = ({ href, children }: { href: string, children: ReactNode }): ReactElement => {
+const NavLink = ({ href, props: { children } }: { href: string, props: { children: ReactNode } }): ReactElement => {
     return (
         <Link href={href}><li>{children}</li></Link>
     );

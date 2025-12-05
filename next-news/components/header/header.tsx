@@ -11,7 +11,7 @@ const Header = (): ReactElement => {
             </div>
             <nav>
                 <ul>
-                    <NavLink href='/news' children='News' />
+                    <NavLink href='/news' props={{ children: 'News' }} />
                 </ul>
             </nav>
         </header>
