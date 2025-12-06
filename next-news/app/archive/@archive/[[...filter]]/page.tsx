@@ -7,7 +7,7 @@ import { News } from "../../../../types/news";
 
 const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): Promise<ReactElement> => {
     const { filter } = await params;
-    console.log(`Filter: ${filter}`);
+    // console.log(`Filter: ${filter}`);
 
     let news: News[] | undefined = undefined;
     let selectedYear: number | undefined = undefined;
@@ -19,8 +19,8 @@ const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string
     if (filter) {
         selectedYear = Number(filter.at(0));
         selectedMonth = Number(filter.at(1));
-        console.log(`Year: ${selectedYear}`);
-        console.log(`Month: ${selectedMonth}`);
+        // console.log(`Year: ${selectedYear}`);
+        // console.log(`Month: ${selectedMonth}`);
         if (selectedYear && !selectedMonth) {
             availableMonths = getAvailableMonthsByYear(selectedYear);
             news = getNewsByYear(selectedYear);
@@ -37,8 +37,8 @@ const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string
             || (selectedMonth && !availableMonths.includes(selectedMonth)
             )
         ) {
-            console.log(selectedYear);
-            console.log(filtersArr);
+            // console.log(selectedYear);
+            // console.log(filtersArr);
             throw new Error('Invalid filter!');
         }
     }

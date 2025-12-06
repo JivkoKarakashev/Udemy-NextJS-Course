@@ -1,9 +1,13 @@
+'use client';
+
 import { ReactElement } from "react";
 import Link from "next/link";
 
 import NavLink from "./nav-link.tsx";
 
 const Header = (): ReactElement => {
+
+
     return (
         <header id="main-header">
             <div id="logo">
@@ -12,6 +16,7 @@ const Header = (): ReactElement => {
             <nav>
                 <ul>
                     <NavLink href='/news' props={{ children: 'News' }} />
+                    <NavLink href='/archive' props={{ children: 'Archive' }} />
                 </ul>
             </nav>
         </header>
