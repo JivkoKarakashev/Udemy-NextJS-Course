@@ -1,0 +1,8 @@
+@mixin fullscreen-image() {
+    position: relative;
+    min-height: 100vh;
+}
+
+.fullscreen-image {
+    @include fullscreen-image;
+}

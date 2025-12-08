@@ -164,6 +164,9 @@
 }
 
 @mixin news-article() {
+  position: absolute;
+  z-index: -1;
+
   .img-wrapper {
     @include img-wrapper;
     min-width: auto;

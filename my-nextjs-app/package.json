@@ -14,7 +14,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "backblaze-b2": "^1.7.1",
     "better-sqlite3": "^12.4.1",
-    "next": "16.0.1",
+    "next": "16.0.7",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },

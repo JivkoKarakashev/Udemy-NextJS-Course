@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 
 import { dummyNews } from "../../../constants/dummy-news.ts";
+import Link from "next/link";
 
 const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
     const { slug } = await params;
@@ -16,14 +17,17 @@ const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promi
     return (
         <article className="news-article">
             <header>
-                <div className="img-wrapper">
-                    <Image
-                        src={imageUrl}
-                        alt={title}
-                        fill
-                        sizes="{max-width: 309px}"
-                    />
-                </div>
+                <Link href={`/news/${slug}/image`} >
+                    <div className="img-wrapper">
+                        <Image
+                            src={imageUrl}
+                            alt={title}
+                            fill
+                            loading='eager'
+                            sizes="(min-width: 768px) 100vw, (min-width: 1200px) 50vw, 33vw"
+                        />
+                    </div>
+                </Link>
                 <h1>{title}</h1>
                 <time dateTime={date}>{date}</time>
             </header>
