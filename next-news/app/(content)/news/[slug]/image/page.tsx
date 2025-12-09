@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import styles from './page.module.scss';
 
-import { dummyNews } from "../../../../constants/dummy-news.ts";
+import { dummyNews } from "../../../../../constants/dummy-news.ts";
 
 const ImagePage = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
     const { slug } = await params;

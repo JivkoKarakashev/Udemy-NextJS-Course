@@ -99,7 +99,6 @@
   }
 
   p {
-    margin: 2rem 0;
     color: #bcbcb7;
     font-size: 1.1rem;
   }
@@ -161,6 +160,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 @mixin news-article() {

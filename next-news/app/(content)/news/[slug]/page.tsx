@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
-import { dummyNews } from "../../../constants/dummy-news.ts";
+import { dummyNews } from "../../../../constants/dummy-news.ts";
 import Link from "next/link";
 
 const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {

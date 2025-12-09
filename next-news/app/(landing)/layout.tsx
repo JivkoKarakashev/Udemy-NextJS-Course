@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 
-import "./globals.scss";
-
-import Header from "../components/header/header.tsx";
+import "../globals.scss";
 
 export const metadata: Metadata = {
   title: "Next.js Page Routing & Rendering",
@@ -17,10 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div id="page">
-          <Header />
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

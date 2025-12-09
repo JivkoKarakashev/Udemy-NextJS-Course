@@ -1,0 +1,11 @@
+@mixin img-wrapper() {
+
+    &.img-wrapper,
+    .img-wrapper {
+        position: relative;
+        min-width: 100%;
+        aspect-ratio: 310/224;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+}

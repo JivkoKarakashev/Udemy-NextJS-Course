@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 import Link from "next/link";
 
-import NewsList from "../../../../components/archive/news-list.tsx";
-import { getAvailableMonthsByYear, getAvailableYears, getNewsByYear, getNewsByYearAndMonth } from "../../../../lib/api.ts";
-import { News } from "../../../../types/news";
+import NewsList from "../../../../../components/archive/news-list.tsx";
+import { getAvailableMonthsByYear, getAvailableYears, getNewsByYear, getNewsByYearAndMonth } from "../../../../../lib/api.ts";
+import { News } from "../../../../../types/news";
 
 const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): Promise<ReactElement> => {
     const { filter } = await params;

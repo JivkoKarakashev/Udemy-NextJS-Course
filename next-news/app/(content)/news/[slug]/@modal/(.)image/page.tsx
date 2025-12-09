@@ -1,13 +1,16 @@
-import { ReactElement } from "react";
-import { notFound } from "next/navigation";
+"use client";
+
+import { ReactElement, use } from "react";
+import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
 
 import styles from './page.module.scss';
 
-import { dummyNews } from "../../../../../constants/dummy-news.ts";
+import { dummyNews } from "../../../../../../constants/dummy-news.ts";
 
-const InterceptedImagePage = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
-    const { slug } = await params;
+const InterceptedImagePage = ({ params }: { params: Promise<{ slug: string }> }): ReactElement => {
+    const router = useRouter();
+    const { slug } = use(params);
     const newsItm = dummyNews.find(itm => itm.slug === slug);
     if (newsItm === undefined) {
         notFound();
@@ -15,7 +18,7 @@ const InterceptedImagePage = async ({ params }: { params: Promise<{ slug: string
     const { imageUrl, title } = newsItm;
     return (
         <>
-            <div className="modal-backdrop"></div>
+            <div className="modal-backdrop" onClick={router.back}></div>
             <dialog className="modal" open>
                 <div className={styles['fullscreen-image']}>
                     <Image

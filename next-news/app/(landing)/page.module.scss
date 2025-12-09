@@ -1,0 +1,23 @@
+@use '../../public/styles/img-wrapper' as img-wrapper;
+
+@mixin home() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin img-wrapper() {
+    min-width: 15%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.home {
+    @include home;
+
+    @include img-wrapper.img-wrapper;
+
+    .img-wrapper {
+        @include img-wrapper;
+    }
+}
