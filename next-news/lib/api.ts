@@ -1,8 +1,24 @@
+import sqlite from 'better-sqlite3';
+
 import { News } from '../types/news.ts';
 import { dummyNews } from '../constants/dummy-news.ts';
+import { resolve } from 'path';
 
-const getAllNews = (): News[] => {
-    return [...dummyNews];
+// const getAllNews = (): News[] => {
+//     return [...dummyNews];
+// };
+// const getAllNews = async (): Promise<News[]> => {
+//     const res = await fetch('http://localhost:3030/news');
+//     if (!res.ok) {
+//         throw new Error("Failed to fetch news");
+//     }
+//     return res.json();
+// };
+const getAllNews = async (): Promise<News[]> => {
+    const db = sqlite('news.db');
+    const stmt = db.prepare<[], News>('SELECT * FROM news');
+    await new Promise((res,) => setTimeout(res, 2000));
+    return stmt.all();
 };
 
 const getLatestNews = (): News[] => {

@@ -1,4 +1,5 @@
-import { News } from "../types/news.ts";
+// import { News } from "../types/news.ts";
+import type { News } from "../types/news.ts";
 
 export const dummyNews: News[] = [
     {

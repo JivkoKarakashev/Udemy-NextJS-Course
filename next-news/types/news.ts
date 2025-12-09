@@ -7,6 +7,9 @@ interface News {
     content: string,
 }
 
+type NewsInsert = Omit<News, 'id'>;
+
 export {
-    type News
+    type News,
+    type NewsInsert
 }

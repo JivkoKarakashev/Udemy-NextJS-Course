@@ -1,18 +1,27 @@
-import { ReactElement } from 'react';
+import { ReactElement, Suspense } from 'react';
 
 // import styles from './page.module.scss';
 
-import NewsList from '../../../components/archive/news-list';
+import NewsList from '../../../components/archive/news-list.tsx';
 import { getAllNews } from '../../../lib/api.ts';
+import Loader from '@/components/loader/loading.tsx';
 
-const News = (): ReactElement => {
-    const news = getAllNews();
+const News = async (): Promise<ReactElement> => {
+    const news = await getAllNews();
+    return (
+        <NewsList news={news} />
+    );
+};
+
+const NewsPage = () => {
     return (
         <>
             <h1>News Page</h1>
-            <NewsList news={news} />
+            <Suspense fallback={<Loader content='Loading news...' />}>
+                <News />
+            </Suspense>
         </>
     );
 };
 
-export default News;
+export default NewsPage;
