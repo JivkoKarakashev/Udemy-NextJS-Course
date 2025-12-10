@@ -5,7 +5,7 @@ import type { NewsInsert } from "../types/news.ts";
 
 const db = new Database('news.db');
 
-db.pragma('')
+db.pragma("journal_mode = WAL");
 
 db.prepare(`
    CREATE TABLE IF NOT EXISTS news (
@@ -16,6 +16,11 @@ db.prepare(`
       date TEXT NOT NULL, 
       imageUrl TEXT NOT NULL
    )
+`).run();
+
+db.prepare(`
+   CREATE INDEX IF NOT EXISTS idx_news_date
+   ON news(date)
 `).run();
 
 (async function initData() {

@@ -1,19 +1,20 @@
-import { ReactElement } from "react";
+import { ReactElement, Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-
-import { dummyNews } from "../../../../constants/dummy-news.ts";
 import Link from "next/link";
+
+import Loader from "@/components/loader/loading.tsx";
+import { getNewsBySlug } from "@/lib/api.ts";
 
 const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
     const { slug } = await params;
     // console.log(slug);
-    const newsItm = dummyNews.find(itm => itm.slug === slug);
-    if (newsItm === undefined) {
+    const newsDetails = await getNewsBySlug(slug);
+    if (newsDetails === undefined) {
         notFound();
     }
-    const { title, imageUrl, date, content } = newsItm;
-    // console.log(newsItm);
+    const { title, imageUrl, date, content } = newsDetails;
+    // console.log(newsDetails);
     return (
         <article className="news-article">
             <header>
@@ -36,4 +37,12 @@ const Details = async ({ params }: { params: Promise<{ slug: string }> }): Promi
     );
 };
 
-export default Details;
+const DetailsPage = ({ params }: { params: Promise<{ slug: string }> }): ReactElement => {
+    return (
+        <Suspense fallback={<Loader content="Loading details..." />}>
+            <Details params={params} />
+        </Suspense >
+    );
+};
+
+export default DetailsPage;

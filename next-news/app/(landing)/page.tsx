@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import styles from './page.module.scss';
 
-import logo from '../../assets/logo.jpg';
+import logo from '@/assets/logo.jpg';
 
 export default function Home() {
   return (

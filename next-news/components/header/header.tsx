@@ -7,7 +7,6 @@ import NavLink from "./nav-link.tsx";
 
 const Header = (): ReactElement => {
 
-
     return (
         <header id="main-header">
             <div id="logo">

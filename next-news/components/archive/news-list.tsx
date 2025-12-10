@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { News } from "../../types/news";
+import { News } from "@/types/news.ts";
 
 const NewsList = ({ news }: { news: News[] }): ReactElement => {
     return (

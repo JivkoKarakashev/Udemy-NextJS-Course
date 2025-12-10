@@ -1,24 +1,23 @@
-"use client";
-
-import { ReactElement, use } from "react";
-import { notFound, useRouter } from "next/navigation";
+import { ReactElement, Suspense } from "react";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 
 import styles from './page.module.scss';
 
-import { dummyNews } from "../../../../../../constants/dummy-news.ts";
+import ModalBackdrop from "@/components/modal/modal-backdrop.tsx";
+import { getNewsBySlug } from "@/lib/api.ts";
+import Loader from "@/components/loader/loading.tsx";
 
-const InterceptedImagePage = ({ params }: { params: Promise<{ slug: string }> }): ReactElement => {
-    const router = useRouter();
-    const { slug } = use(params);
-    const newsItm = dummyNews.find(itm => itm.slug === slug);
+const AsyncInterceptedImage = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
+    const { slug } = await params;
+    const newsItm = await getNewsBySlug(slug);
     if (newsItm === undefined) {
         notFound();
     }
     const { imageUrl, title } = newsItm;
     return (
         <>
-            <div className="modal-backdrop" onClick={router.back}></div>
+            <ModalBackdrop />
             <dialog className="modal" open>
                 <div className={styles['fullscreen-image']}>
                     <Image
@@ -31,6 +30,14 @@ const InterceptedImagePage = ({ params }: { params: Promise<{ slug: string }> })
                 </div>
             </dialog>
         </>
+    );
+};
+
+const InterceptedImagePage = ({ params }: { params: Promise<{ slug: string }> }): ReactElement => {
+    return (
+        <Suspense fallback={<Loader content="Loading image..." />}>
+            <AsyncInterceptedImage params={params} />
+        </Suspense>
     );
 };
 

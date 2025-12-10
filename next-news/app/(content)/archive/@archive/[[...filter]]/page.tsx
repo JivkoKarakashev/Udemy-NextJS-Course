@@ -1,34 +1,41 @@
-import { ReactElement } from "react";
+import { ReactElement, Suspense } from "react";
 import Link from "next/link";
 
-import NewsList from "../../../../../components/archive/news-list.tsx";
-import { getAvailableMonthsByYear, getAvailableYears, getNewsByYear, getNewsByYearAndMonth } from "../../../../../lib/api.ts";
-import { News } from "../../../../../types/news";
+import NewsList from "@/components/archive/news-list.tsx";
+import { getAvailableMonthsByYear, getAvailableYears, getNewsByYear, getNewsByYearAndMonth } from "@/lib/api.ts";
+import { News } from "@/types/news";
+import Loader from "@/components/loader/loading.tsx";
 
 const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): Promise<ReactElement> => {
     const { filter } = await params;
     // console.log(`Filter: ${filter}`);
 
     let news: News[] | undefined = undefined;
-    let selectedYear: number | undefined = undefined;
-    let selectedMonth: number | undefined = undefined;
-    const availableYears = getAvailableYears();
-    let availableMonths = availableYears.map(year => getAvailableMonthsByYear(year)).flat();
+    let selectedYear: string | undefined = undefined;
+    let selectedMonth: string | undefined = undefined;
+
+    const availableYears = await getAvailableYears();
+    let availableMonths: string[] = [];
+    availableYears.forEach(async (year) => {
+        const availMonthsByYear = await getAvailableMonthsByYear(year);
+        availableMonths.push(...availMonthsByYear);
+        // console.log(availableMonths);
+    });
     let filtersArr = [...availableYears];
 
     if (filter) {
-        selectedYear = Number(filter.at(0));
-        selectedMonth = Number(filter.at(1));
+        selectedYear = filter.at(0);
+        selectedMonth = filter.at(1);
         // console.log(`Year: ${selectedYear}`);
         // console.log(`Month: ${selectedMonth}`);
         if (selectedYear && !selectedMonth) {
-            availableMonths = getAvailableMonthsByYear(selectedYear);
-            news = getNewsByYear(selectedYear);
+            availableMonths = await getAvailableMonthsByYear(selectedYear);
+            news = await getNewsByYear(selectedYear);
             filtersArr = [...availableMonths];
         }
 
         if (selectedYear && selectedMonth) {
-            news = getNewsByYearAndMonth(selectedYear, selectedMonth);
+            news = await getNewsByYearAndMonth(selectedYear, selectedMonth);
             filtersArr = [];
         }
 
@@ -69,4 +76,12 @@ const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string
 
 };
 
-export default FilteredNews;
+const FilteredNewsPage = ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): ReactElement => {
+    return (
+        <Suspense fallback={<Loader content="Loading filtered news..." />}>
+            <FilteredNews params={params} />
+        </Suspense>
+    );
+};
+
+export default FilteredNewsPage;

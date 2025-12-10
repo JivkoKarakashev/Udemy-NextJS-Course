@@ -1,14 +1,15 @@
-import { ReactElement } from "react";
+import { ReactElement, Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
 import styles from './page.module.scss';
 
-import { dummyNews } from "../../../../../constants/dummy-news.ts";
+import Loader from "@/components/loader/loading.tsx";
+import { getNewsBySlug } from "@/lib/api.ts";
 
-const ImagePage = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
+const AsyncImage = async ({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> => {
     const { slug } = await params;
-    const newsItm = dummyNews.find(itm => itm.slug === slug);
+    const newsItm = await getNewsBySlug(slug);
     if (newsItm === undefined) {
         notFound();
     }
@@ -23,6 +24,14 @@ const ImagePage = async ({ params }: { params: Promise<{ slug: string }> }): Pro
                 sizes="(min-width: 768px) 100vw, (min-width: 1200px) 50vw, 33vw"
             />
         </div>
+    );
+};
+
+const ImagePage = ({ params }: { params: Promise<{ slug: string }> }): ReactElement => {
+    return (
+        <Suspense fallback={<Loader content="Loading image..." />}>
+            <AsyncImage params={params} />
+        </Suspense>
     );
 };
 
