@@ -6,81 +6,96 @@ import { getAvailableMonthsByYear, getAvailableYears, getNewsByYear, getNewsByYe
 import { News } from "@/types/news";
 import Loader from "@/components/loader/loading.tsx";
 
-const FilteredNews = async ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): Promise<ReactElement> => {
-    const { filter } = await params;
-    // console.log(`Filter: ${filter}`);
-
-    let news: News[] | undefined = undefined;
-    let selectedYear: string | undefined = undefined;
-    let selectedMonth: string | undefined = undefined;
-
-    const availableYears = await getAvailableYears();
+const FilterHeader = async ({ year, month }: { year: string | undefined, month: string | undefined }): Promise<ReactElement> => {
+    let availableYears: string[] = [];
     let availableMonths: string[] = [];
-    availableYears.forEach(async (year) => {
-        const availMonthsByYear = await getAvailableMonthsByYear(year);
-        availableMonths.push(...availMonthsByYear);
-        // console.log(availableMonths);
-    });
-    let filtersArr = [...availableYears];
+    let filtersArr: string[] = [];
 
-    if (filter) {
-        selectedYear = filter.at(0);
-        selectedMonth = filter.at(1);
-        // console.log(`Year: ${selectedYear}`);
-        // console.log(`Month: ${selectedMonth}`);
-        if (selectedYear && !selectedMonth) {
-            availableMonths = await getAvailableMonthsByYear(selectedYear);
-            news = await getNewsByYear(selectedYear);
-            filtersArr = [...availableMonths];
-        }
+    availableYears = await getAvailableYears();
+    filtersArr = [...availableYears];
 
-        if (selectedYear && selectedMonth) {
-            news = await getNewsByYearAndMonth(selectedYear, selectedMonth);
-            filtersArr = [];
-        }
+    if (year) {
+        availableMonths = await getAvailableMonthsByYear(year);
+        filtersArr = [...availableMonths];
+    }
 
-        if (
-            (selectedYear && !availableYears.includes(selectedYear))
-            || (selectedMonth && !availableMonths.includes(selectedMonth)
-            )
-        ) {
-            // console.log(selectedYear);
-            // console.log(filtersArr);
-            throw new Error('Invalid filter!');
-        }
+    if (year && month) {
+        filtersArr = [];
+    }
+
+    if ((year && !availableYears.includes(year)) ||
+        month && !availableMonths.includes(month)) {
+        // console.log(`AvailableYears: ${availableYears}`);
+        // console.log(`SelectedYear: ${year}`);
+        // console.log(`AvailableMonths: ${availableMonths}`);
+        // console.log(`SelectedMonth: ${month}`);
+        // console.log(filtersArr);
+        throw new Error('Invalid filter!');
+    }
+
+    return (
+        <header id="archive-header">
+            <nav>
+                <ul>
+                    {filtersArr.map(filter => {
+                        const href = (year !== undefined)
+                            ? `/archive/${year}/${filter}`
+                            : `/archive/${filter}`
+                        return (
+                            <li key={filter}>
+                                <Link href={href}>{filter}</Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </nav>
+        </header>
+    );
+};
+
+const FilteredNews = async ({ year, month }: { year: string | undefined, month: string | undefined }): Promise<ReactElement> => {
+    let news: News[] | undefined = undefined;
+
+    // console.log(`Year: ${year}`);
+    // console.log(`Month: ${month}`);
+    if (year && !month) {
+        news = await getNewsByYear(year);
+    }
+
+    if (year && month) {
+        news = await getNewsByYearAndMonth(year, month);
     }
 
     return (
         <>
-            <header id="archive-header">
-                <nav>
-                    <ul>
-                        {filtersArr.map(filter => {
-                            const href = selectedYear
-                                ? `/archive/${selectedYear}/${filter}`
-                                : `/archive/${filter}`
-                            return (
-                                <li key={filter}>
-                                    <Link href={href}>{filter}</Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </nav>
-            </header>
             {news && news.length && <NewsList news={news} />}
             {(!news || !news.length) && <p>No news found for the selected period.</p>}
         </>
     );
-
-
 };
 
-const FilteredNewsPage = ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): ReactElement => {
+const FilteredNewsPage = async ({ params }: { params: Promise<{ filter: Array<string | undefined & string | undefined> | undefined }> }): Promise<ReactElement> => {
+    let year: string | undefined = undefined;
+    let month: string | undefined = undefined;
+
+    const { filter } = await params;
+    if (filter) {
+        year = filter.at(0);
+        month = filter.at(1);
+        // console.log(`SelectedYear: ${year}`);
+        // console.log(`SelectedMonth: ${month}`);
+    }
+
     return (
-        <Suspense fallback={<Loader content="Loading filtered news..." />}>
-            <FilteredNews params={params} />
-        </Suspense>
+        <>
+            <Suspense fallback={<Loader content="Loading filters..." />}>
+                <FilterHeader year={year} month={month} />
+            </Suspense>
+
+            <Suspense fallback={<Loader content="Loading filtered news..." />}>
+                <FilteredNews year={year} month={month} />
+            </Suspense>
+        </>
     );
 };
 
