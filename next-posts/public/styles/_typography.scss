@@ -1,0 +1,26 @@
+@mixin typography() {
+    html {
+        box-sizing: border-box;
+        font: 14px 'Merriweather', serif;
+    }
+
+    body {
+        margin: 0;
+        background-color: #363234;
+        color: #eee7ea;
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}

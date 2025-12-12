@@ -1,37 +1,18 @@
+@use '../public/styles/reset.scss' as reset;
+@use '../public/styles/typography.scss' as typography;
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+$box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+
+@include reset.reset;
+@include typography.typography;
 
 @mixin img-wrapper() {
   position: relative;
   overflow: hidden;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-family: 'Merriweather', serif;
-}
-
-body {
-  margin: 0;
-  background-color: #363234;
-  color: #eee7ea;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-main {
+@mixin main() {
   width: 80%;
   max-width: 60rem;
   margin: 3rem auto;
@@ -39,10 +20,10 @@ main {
   border-radius: 6px;
   background-color: #1f1b1d;
   min-height: 85vh;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: $box-shadow;
 }
 
-#main-header {
+@mixin main-header() {
   width: 80%;
   max-width: 60rem;
   margin: 2rem auto;
@@ -54,118 +35,115 @@ main {
     @include img-wrapper;
     aspect-ratio: 80/80;
     min-width: 80px;
+
+    img {
+      filter: drop-shadow(0 0 3px #000);
+    }
+  }
+
+  ul {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: #eee7ea;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      font-size: 1.5rem;
+      border-radius: 4px;
+    }
+
+    a:hover {
+      background-color: #5f5a5c;
+    }
+
+    .cta-link {
+      background-color: #e32195;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      color: #eee7ea;
+    }
+
+    .cta-link:hover {
+      background-color: #c321e3;
+    }
   }
 }
 
-#main-header img {
-  width: 5rem;
-  height: 5rem;
-  filter: drop-shadow(0 0 3px #000);
+@mixin form-control() {
+
+  label,
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #c7a7b7;
+  }
+
+  input,
+  textarea {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #443f41;
+    color: #eee7ea;
+  }
 }
 
-#main-header ul {
-  display: flex;
-  gap: 1rem;
-}
-
-#main-header ul a {
-  color: #eee7ea;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  font-size: 1.5rem;
-  border-radius: 4px;
-}
-
-#main-header ul a:hover {
-  background-color: #5f5a5c;
-}
-
-#main-header ul .cta-link {
-  background-color: #e32195;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  color: #eee7ea;
-}
-
-#main-header ul .cta-link:hover {
-  background-color: #c321e3;
-}
-
-#latest-posts {
-  margin-top: 2rem;
-}
-
-.form-control label,
-.form-control input,
-.form-control textarea {
-  display: block;
-  width: 100%;
-  margin-bottom: 0.25rem;
-}
-
-.form-control label {
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: #c7a7b7;
-}
-
-.form-control input,
-.form-control textarea {
-  font: inherit;
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  background-color: #443f41;
-  color: #eee7ea;
-}
-
-.form-actions {
+@mixin form-actions() {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   margin-top: 1rem;
+
+  button {
+    font: inherit;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #e32195;
+    color: #eee7ea;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #a80a69;
+  }
+
+  button[type='reset'] {
+    background-color: transparent;
+  }
+
+  button[type='reset']:hover {
+    color: #e299b6;
+  }
 }
 
-.form-actions button {
-  font: inherit;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #e32195;
-  color: #eee7ea;
-  cursor: pointer;
-}
-
-.form-actions button:hover {
-  background-color: #a80a69;
-}
-
-.form-actions button[type='reset'] {
-  background-color: transparent;
-}
-
-.form-actions button[type='reset']:hover {
-  color: #e299b6;
-}
-
-.form-errors {
+@mixin form-errors() {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+
+  li {
+    margin: 0.35rem 0;
+    color: #c882a2;
+  }
 }
 
-.form-errors li {
-  margin: 0.35rem 0;
-  color: #c882a2;
-}
-
-.posts {
+@mixin posts() {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.post {
+@mixin post() {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -173,59 +151,90 @@ main {
   border-radius: 6px;
   border: 1px solid #443f41;
   background-color: #131011;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  box-shadow: $box-shadow;
+
+  .img-wrapper {
+    @include img-wrapper;
+    flex: 0 1 15%;
+    aspect-ratio: 128/96;
+    min-width: 128px;
+  }
+
+  .post-content {
+    flex: 1;
+
+    header {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      p {
+        font-size: 0.9rem;
+        color: #b1a9ac;
+      }
+
+      .like-button {
+        @include like-button;
+      }
+
+      .like-button:hover svg,
+      .liked .like-button svg {
+        fill: #e32195;
+      }
+
+      .liked .like-button:hover svg {
+        fill: transparent;
+      }
+    }
+
+    h2,
+    p {
+      margin: 0;
+    }
+  }
 }
 
-.post .img-wrapper {
-  @include img-wrapper;
-  flex: 0 1 15%;
-  aspect-ratio: 128/96;
-  min-width: 128px;
-
-  // img {
-  //   height: auto;
-  //   aspect-ratio: 128/96;
-  // }
-}
-
-.post-content {
-  flex: 1;
-}
-
-.post h2,
-.post p {
-  margin: 0;
-}
-
-.post header {
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.post header p {
-  font-size: 0.9rem;
-  color: #b1a9ac;
-}
-
-.like-button {
+@mixin like-button() {
   background-color: transparent;
   border: none;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: transparent;
+    stroke: #e32195;
+  }
 }
 
-.like-button svg {
-  width: 1.5rem;
-  height: 1.5rem;
-  fill: transparent;
-  stroke: #e32195;
+main {
+  @include main;
 }
 
-.like-button:hover svg,
-.liked .like-button svg {
-  fill: #e32195;
+#main-header {
+  @include main-header;
 }
 
-.liked .like-button:hover svg {
-  fill: transparent;
+#latest-posts {
+  margin-top: 2rem;
+}
+
+.form-control {
+  @include form-control;
+}
+
+.form-actions {
+  @include form-actions;
+}
+
+.form-errors {
+  @include form-errors;
+}
+
+.posts {
+  @include posts;
+
+  .post {
+    @include post;
+  }
 }
