@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import logo from '@/public/icons/logo.png';
 
@@ -7,7 +8,14 @@ const Header = (): ReactElement => {
   return (
     <header id="main-header">
       <Link href="/">
-        <img src={logo.src} alt="Mobile phone with posts feed on it" />
+        <div className="img-wrapper">
+          <Image
+            src={logo.src}
+            alt="Mobile phone with posts feed on it"
+            loading='eager'
+            fill
+          />
+        </div>
       </Link>
       <nav>
         <ul>

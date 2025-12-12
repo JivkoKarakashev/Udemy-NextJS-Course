@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
+import Image from 'next/image';
 
 import { GetPost } from '@/types/post.ts';
-import { formatTimeStamp } from '@/utils/format.ts';
+import { formatTimeStamp } from '@/utils/format-time-stamp.ts';
 import LikeButton from './like-icon.tsx';
 
 const Post = ({ post }: { post: GetPost }) => {
@@ -10,8 +11,13 @@ const Post = ({ post }: { post: GetPost }) => {
 
   return (
     <article className="post">
-      <div className="post-image">
-        <img src={imageUrl} alt={title} />
+      <div className="img-wrapper">
+        <Image
+          src={imageUrl}
+          alt={title}
+          fill
+          sizes='max-width: 128px'
+        />
       </div>
       <div className="post-content">
         <header>

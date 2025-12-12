@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import "./globals.css";
+import "./globals.scss";
 
 import Header from "@/components/header.tsx";
 

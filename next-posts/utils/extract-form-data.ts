@@ -9,6 +9,14 @@ function extractFormData(formData: FormData): NewPostFormData {
         return value.trim();
     };
 
+    // const getNumber = (key: string): number => {
+    //     const value = Number(formData.get(key));
+    //     if (typeof value !== 'number') {
+    //         throw new Error(`${key} must be a number`);
+    //     }
+    //     return value;
+    // };
+
     const getFile = (key: string): File => {
         const value = formData.get(key);
         if (value instanceof File === false) {
@@ -22,7 +30,7 @@ function extractFormData(formData: FormData): NewPostFormData {
         title: getString('title'),
         content: getString('content')
     };
-};
+}
 
 export {
     extractFormData

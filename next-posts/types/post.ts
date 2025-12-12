@@ -1,6 +1,8 @@
 interface Post {
     id: number,
     imageUrl: string,
+    imageFileName: string,
+    imageFileId: string,
     title: string,
     content: string,
     createdAt: string,
@@ -16,7 +18,7 @@ interface GetPost extends Post {
 
 type NewPost = Omit<Post, 'id' | 'createdAt'>
 
-interface NewPostFormData extends Omit<NewPost, 'imageUrl' | 'userId'> {
+interface NewPostFormData extends Omit<NewPost, 'imageUrl' | 'imageFileName' | 'imageFileId' | 'userId'> {
     image: File
 }
 

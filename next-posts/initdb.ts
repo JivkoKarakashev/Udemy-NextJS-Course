@@ -17,6 +17,8 @@ db.pragma("journal_mode = WAL");
       CREATE TABLE IF NOT EXISTS posts (
          id INTEGER PRIMARY KEY, 
          imageUrl TEXT NOT NULL,
+         imageFileName TEXT NOT NULL,
+         imageFileId TEXT NOT NULL,
          title TEXT NOT NULL, 
          content TEXT NOT NULL, 
          createdAt TEXT DEFAULT CURRENT_TIMESTAMP,

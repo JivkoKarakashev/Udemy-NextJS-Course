@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
+@mixin img-wrapper() {
+  position: relative;
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -20,6 +25,12 @@ ul {
   padding: 0;
 }
 
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 main {
   width: 80%;
   max-width: 60rem;
@@ -38,6 +49,12 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .img-wrapper {
+    @include img-wrapper;
+    aspect-ratio: 80/80;
+    min-width: 80px;
+  }
 }
 
 #main-header img {
@@ -150,6 +167,7 @@ main {
 
 .post {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
   border-radius: 6px;
@@ -158,10 +176,16 @@ main {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.post img {
-  width: 8rem;
-  height: 6rem;
-  object-fit: cover;
+.post .img-wrapper {
+  @include img-wrapper;
+  flex: 0 1 15%;
+  aspect-ratio: 128/96;
+  min-width: 128px;
+
+  // img {
+  //   height: auto;
+  //   aspect-ratio: 128/96;
+  // }
 }
 
 .post-content {

@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 
-import { createPost } from "./create-post.ts";
+import { createPost } from "@/actions/create-post.ts";
+import FormButtons from "@/components/new-post/form-buttons";
 
 const NewPost = (): ReactElement => {
   return (
@@ -25,8 +26,7 @@ const NewPost = (): ReactElement => {
           <textarea id="content" name="content" rows={5} />
         </p>
         <p className="form-actions">
-          <button type="reset">Reset</button>
-          <button>Create Post</button>
+          <FormButtons />
         </p>
       </form>
     </>

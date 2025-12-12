@@ -3,6 +3,9 @@ interface Like {
     postId: number,
 }
 
+type UpdateLikeStatusParams = Like;
+
 export {
-    type Like
+    type Like,
+    type UpdateLikeStatusParams
 }
