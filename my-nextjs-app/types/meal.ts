@@ -13,7 +13,7 @@ interface DBMeal {
 
 type MealInsert = Omit<DBMeal, 'id'>;
 
-interface MealShare extends Omit<MealInsert, 'image'> {
+interface MealShare extends Omit<MealInsert, 'imageUrl' | 'imageFileName' | 'imageFileId'> {
     image: File
 }
 

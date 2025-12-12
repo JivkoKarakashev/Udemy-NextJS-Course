@@ -1,0 +1,14 @@
+'use client';
+
+import { ReactElement } from "react";
+
+const FeedError = (): ReactElement => {
+    return (
+        <>
+            <h2>An error occurred!</h2>
+            <p>Unfortunately, something went wrong. We&#39;re working on it!</p>
+        </>
+    );
+};
+
+export default FeedError;
