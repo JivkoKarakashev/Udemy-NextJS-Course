@@ -12,7 +12,7 @@ const FormButtons = (): ReactElement => {
   return (
     <>
       <button type="reset">Reset</button>
-      <button>{content}</button>
+      <button disabled={pending}>{content}</button>
     </>
   );
 };

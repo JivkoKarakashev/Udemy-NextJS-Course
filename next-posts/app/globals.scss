@@ -95,6 +95,12 @@ $box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
     background-color: #443f41;
     color: #eee7ea;
   }
+
+  input.error,
+  textarea.error {
+    border: 2px solid #c882a2;
+    background-color: #c882a2;
+  }
 }
 
 @mixin form-actions() {
@@ -117,6 +123,13 @@ $box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
     background-color: #a80a69;
   }
 
+  button:disabled,
+  button[disabled] {
+    cursor: wait;
+    background-color: #cccccc;
+    color: #666666;
+  }
+
   button[type='reset'] {
     background-color: transparent;
   }
@@ -128,7 +141,7 @@ $box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 
 @mixin form-errors() {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 1rem;
 
   li {
