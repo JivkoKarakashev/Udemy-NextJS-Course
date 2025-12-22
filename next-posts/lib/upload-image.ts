@@ -1,3 +1,5 @@
+import "server-only";
+
 import B2 from 'backblaze-b2';
 
 import { B2UploadFileResponse, B2UploadUrlResponse, UploadImageResponse } from '@/types/b2-bucket.ts';

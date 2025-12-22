@@ -1,12 +1,15 @@
-import { ReactElement } from 'react';
+"use client";
+
+import { ReactElement, useOptimistic, useTransition } from 'react';
 import Image from 'next/image';
 
 import { GetPost } from '@/types/post.ts';
 import { formatTimeStamp } from '@/utils/format-time-stamp.ts';
 import LikeButton from './like-icon.tsx';
+import { togglePostLikeStatus } from '@/actions/toggle-post-like-status.ts';
 
-const Post = ({ post }: { post: GetPost }) => {
-  const { imageUrl, title, userFirstName, createdAt, content } = post;
+const Post = ({ post, isPending, action }: { post: GetPost, isPending: boolean, action: () => void }) => {
+  const { imageUrl, title, userFirstName, createdAt, content, isLiked } = post;
   const formatedTimeStamp = formatTimeStamp(createdAt);
 
   return (
@@ -30,8 +33,8 @@ const Post = ({ post }: { post: GetPost }) => {
               </time>
             </p>
           </div>
-          <div>
-            <LikeButton />
+          <div className={Boolean(isLiked) ? 'liked' : undefined}>
+            <LikeButton isPending={isPending} action={action} />
           </div>
         </header>
         <p>{content}</p>
@@ -41,15 +44,44 @@ const Post = ({ post }: { post: GetPost }) => {
 };
 
 const Posts = ({ posts }: { posts: GetPost[] }): ReactElement => {
-  if (!posts || posts.length === 0) {
+
+  const [isPending, startTransition] = useTransition();
+  const [optimPosts, setOptimPosts] = useOptimistic(posts, optimPostsReducer);
+
+  function optimPostsReducer(prevState: GetPost[], postId: number) {
+    const idx = prevState.findIndex(post => post.id === postId);
+    if (idx === -1) {
+      return prevState;
+    }
+    const { likes, isLiked } = prevState[idx];
+    const newLikes = isLiked ? likes - 1 : likes + 1;
+    const newIsLiked = isLiked ? 0 : 1;
+    const updatedPost: GetPost = { ...prevState[idx], likes: newLikes, isLiked: newIsLiked };
+    const newPosts = [...prevState];
+    newPosts[idx] = { ...updatedPost };
+    return newPosts;
+  }
+
+  const updatePostById = (postId: number) => {
+    startTransition(async () => {
+      setOptimPosts(postId);
+      try {
+        await togglePostLikeStatus({ userId: 2, postId });
+      } catch (err) {
+        setOptimPosts(postId);
+      }
+    });
+  }
+
+  if (!optimPosts || optimPosts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
 
   return (
     <ul className="posts">
-      {posts.map(post => (
+      {optimPosts.map(post => (
         <li key={post.id}>
-          <Post post={post} />
+          <Post post={post} isPending={isPending} action={() => updatePostById(post.id)} />
         </li>
       ))}
     </ul>

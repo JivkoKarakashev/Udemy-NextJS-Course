@@ -194,6 +194,7 @@ $box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
       .like-button:hover svg,
       .liked .like-button svg {
         fill: #e32195;
+        cursor: pointer;
       }
 
       .liked .like-button:hover svg {
