@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useOptimistic, useTransition } from 'react';
+import { ReactElement, useOptimistic } from 'react';
 import Image from 'next/image';
 
 import { GetPost } from '@/types/post.ts';
@@ -8,7 +8,7 @@ import { formatTimeStamp } from '@/utils/format-time-stamp.ts';
 import LikeButton from './like-icon.tsx';
 import { togglePostLikeStatus } from '@/actions/toggle-post-like-status.ts';
 
-const Post = ({ post, isPending, action }: { post: GetPost, isPending: boolean, action: () => void }) => {
+const Post = ({ post, action }: { post: GetPost, action: () => void }) => {
   const { imageUrl, title, userFirstName, createdAt, content, isLiked } = post;
   const formatedTimeStamp = formatTimeStamp(createdAt);
 
@@ -34,7 +34,9 @@ const Post = ({ post, isPending, action }: { post: GetPost, isPending: boolean, 
             </p>
           </div>
           <div className={Boolean(isLiked) ? 'liked' : undefined}>
-            <LikeButton isPending={isPending} action={action} />
+            <form action={action}>
+              <LikeButton />
+            </form>
           </div>
         </header>
         <p>{content}</p>
@@ -45,10 +47,9 @@ const Post = ({ post, isPending, action }: { post: GetPost, isPending: boolean, 
 
 const Posts = ({ posts }: { posts: GetPost[] }): ReactElement => {
 
-  const [isPending, startTransition] = useTransition();
-  const [optimPosts, setOptimPosts] = useOptimistic(posts, optimPostsReducer);
+  const [optimisticPosts, setOptimisticPosts] = useOptimistic(posts, optimisticPostsReducer);
 
-  function optimPostsReducer(prevState: GetPost[], postId: number) {
+  function optimisticPostsReducer(prevState: GetPost[], postId: number) {
     const idx = prevState.findIndex(post => post.id === postId);
     if (idx === -1) {
       return prevState;
@@ -62,26 +63,27 @@ const Posts = ({ posts }: { posts: GetPost[] }): ReactElement => {
     return newPosts;
   }
 
-  const updatePostById = (postId: number) => {
-    startTransition(async () => {
-      setOptimPosts(postId);
-      try {
-        await togglePostLikeStatus({ userId: 2, postId });
-      } catch (err) {
-        setOptimPosts(postId);
-      }
-    });
-  }
+  const updatePostById = async (postId: number): Promise<void> => {
+    setOptimisticPosts(postId);
+    try {
+      await togglePostLikeStatus({ userId: 2, postId });
+    } catch (err) {
+      console.warn('Post liking failed, like status was reverted!');
+      setOptimisticPosts(postId);
+      const { message } = err as Error;
+      throw new Error(message);
+    }
+  };
 
-  if (!optimPosts || optimPosts.length === 0) {
+  if (!optimisticPosts || optimisticPosts.length === 0) {
     return <p>There are no posts yet. Maybe start sharing some?</p>;
   }
 
   return (
     <ul className="posts">
-      {optimPosts.map(post => (
+      {optimisticPosts.map(post => (
         <li key={post.id}>
-          <Post post={post} isPending={isPending} action={() => updatePostById(post.id)} />
+          <Post post={post} action={() => updatePostById(post.id)} />
         </li>
       ))}
     </ul>

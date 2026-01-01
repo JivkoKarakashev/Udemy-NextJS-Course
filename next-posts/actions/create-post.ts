@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 import { extractFormData } from "@/utils/extract-form-data.ts";
 import { uploadImage } from "@/lib/upload-image.ts";
@@ -22,6 +23,7 @@ async function createPost(_prevState: FormState, formData: FormData): Promise<Fo
     const { imageUrl, imageFileName, imageFileId } = await uploadImage(image.value!);
     // console.log({ imageUrl, imageFileName, imageFileId });
     await insertPost({ imageUrl, imageFileName, imageFileId, title: title.value, content: content.value, userId: 1 });
+    revalidatePath('/', 'layout');
     redirect('/feed');
 }
 

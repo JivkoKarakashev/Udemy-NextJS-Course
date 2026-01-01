@@ -1,0 +1,28 @@
+import sqlite, { RunResult } from 'better-sqlite3';
+
+import { Message, NewMessage } from '@/types/message.ts';
+
+const db = new sqlite('messages.db');
+
+const getMessages = async (): Promise<Message[]> => {
+  // console.log('Fetching messages from db');
+  const stmt = db.prepare<[], Message>('SELECT * FROM messages');
+  await new Promise((resolve,) => setTimeout(resolve, 1000));
+  return stmt.all();
+};
+
+const addMessage = async (message: NewMessage): Promise<RunResult> => {
+  const stmt = db.prepare(`
+    INSERT INTO messages (text)
+    VALUES (
+      @text
+    )
+  `);
+  await new Promise((resolve,) => setTimeout(resolve, 1000));
+  return stmt.run(message);
+};
+
+export {
+  getMessages,
+  addMessage
+}
