@@ -1,3 +1,5 @@
+"use server";
+
 import sqlite, { RunResult } from 'better-sqlite3';
 
 import { Message, NewMessage } from '@/types/message.ts';
@@ -22,7 +24,21 @@ const addMessage = async (message: NewMessage): Promise<RunResult> => {
   return stmt.run(message);
 };
 
+const getServerMessages = async (headers?: Record<string, string>): Promise<Message[]> => {
+
+  const cache: RequestCache = 'force-cache';
+
+  const options: RequestInit = {
+    headers: headers ?? { 'X-ID': cache },
+    cache
+  }
+  const response = await fetch('http://localhost:3030/messages', options);
+  const data = await response.json();
+  return data;
+};
+
 export {
   getMessages,
-  addMessage
+  addMessage,
+  getServerMessages
 }

@@ -1,14 +1,14 @@
 import { ReactElement } from 'react';
 
-import Messages from '@/components/messages';
+import Messages from '@/components/messages.tsx';
+import { getServerMessages } from '@/lib/api.ts';
 
 const MessagesPage = async (): Promise<ReactElement> => {
-  const response = await fetch('http://localhost:8080/messages', {
-    headers: {
-      'X-ID': 'page',
-    },
-  });
-  const messages = await response.json();
+  // const headers: Record<string, string> = {
+  //   'X-ID': 'page'
+  // };
+  // const messages = await getServerMessages(headers);
+  const messages = await getServerMessages();
 
   if (!messages || messages.length === 0) {
     return <p>No messages found</p>;
