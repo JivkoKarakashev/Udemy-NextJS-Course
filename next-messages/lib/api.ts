@@ -1,17 +1,25 @@
 "use server";
 
+import { cache } from 'react';
+import { unstable_cache as nextCache } from 'next/cache';
 import sqlite, { RunResult } from 'better-sqlite3';
 
 import { Message, NewMessage } from '@/types/message.ts';
 
 const db = new sqlite('messages.db');
 
-const getMessages = async (): Promise<Message[]> => {
-  // console.log('Fetching messages from db');
-  const stmt = db.prepare<[], Message>('SELECT * FROM messages');
-  await new Promise((resolve,) => setTimeout(resolve, 1000));
-  return stmt.all();
-};
+const getMessages = nextCache(
+  cache(async (): Promise<Message[]> => {
+    console.log('Fetching messages from db');
+    const stmt = db.prepare<[], Message>('SELECT * FROM messages');
+    await new Promise((resolve,) => setTimeout(resolve, 1000));
+    return stmt.all();
+  }),
+  ['messages'],
+  {
+    tags: ['msgs']
+  }
+);
 
 const addMessage = async (message: NewMessage): Promise<RunResult> => {
   const stmt = db.prepare(`

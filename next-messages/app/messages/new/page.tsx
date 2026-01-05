@@ -1,28 +1,8 @@
 import { ReactElement } from 'react';
-import { redirect } from 'next/navigation';
 
-import { addMessage } from '@/lib/api.ts';
-import { NewMessage } from '@/types/message.ts';
+import { createMessage } from '@/actions/create-message';
 
 const NewMessagePage = (): ReactElement => {
-  async function createMessage(formData: FormData) {
-    'use server';
-
-    const text = formData.get('message');
-    if (!text) {
-      throw new Error('Empty message not allowed!');
-    }
-
-    if (typeof text !== 'string') {
-      throw new Error('Message must be a string!');
-    }
-
-    const message: NewMessage = {
-      text
-    }
-    addMessage(message);
-    redirect('/messages');
-  };
 
   return (
     <>

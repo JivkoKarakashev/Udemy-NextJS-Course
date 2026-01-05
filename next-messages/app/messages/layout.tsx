@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 
-import { getServerMessages } from "@/lib/api.ts";
+import { getMessages } from "@/lib/api.ts";
 
 const MessagesLayout = async ({ children }: { children: ReactNode }) => {
   // const headers: Record<string, string> = {
   //   'X-ID': 'layout',
   // };
   // const messages = await getServerMessages(headers);
-  const messages = await getServerMessages();
+  // const messages = await getServerMessages();
+  const messages = await getMessages();
   const totalMessages = messages.length;
 
   return (
