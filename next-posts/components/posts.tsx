@@ -19,7 +19,6 @@ const Post = ({ post, action }: { post: GetPost, action: () => void }) => {
           src={imageUrl}
           alt={title}
           fill
-          sizes='max-width: 128px'
         />
       </div>
       <div className="post-content">

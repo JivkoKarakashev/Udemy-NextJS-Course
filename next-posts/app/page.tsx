@@ -1,8 +1,14 @@
 import { ReactElement, Suspense } from "react";
+import { Metadata } from "next";
 
 import { getPosts } from "@/lib/api.ts";
 import Posts from "@/components/posts.tsx";
 import Loader from "@/components/loader/loading.tsx";
+
+export const metadata: Metadata = {
+  title: 'Latest Posts',
+  description: 'Browse our latest posts!'
+};
 
 const LatestPosts = async (): Promise<ReactElement> => {
   const latestPosts = await getPosts(2);

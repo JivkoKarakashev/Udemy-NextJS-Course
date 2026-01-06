@@ -10,9 +10,10 @@ const Header = (): ReactElement => {
       <Link href="/">
         <div className="img-wrapper">
           <Image
-            src={logo.src}
+            src={logo}
             alt="Mobile phone with posts feed on it"
             loading='eager'
+            fetchPriority='high'
             fill
           />
         </div>
