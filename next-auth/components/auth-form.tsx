@@ -2,10 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import authIcon from '@/public/images/auth-icon.jpg';
+import { signup } from '@/actions/auth.ts';
 
 const AuthForm = (): React.ReactElement => {
   return (
-    <form id="auth-form">
+    <form id="auth-form" action={signup}>
       <div>
         <Image
           src={authIcon}
