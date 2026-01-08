@@ -16,8 +16,7 @@ const TrainingPage = async () => {
                 alt={training.title}
                 loading={idx === 0 ? 'eager' : 'lazy'}
                 fill
-                sizes='(max-width: 768px) 100vw, 33vw'
-
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               />
             </div>
             <div>

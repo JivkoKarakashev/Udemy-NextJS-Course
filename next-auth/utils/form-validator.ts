@@ -1,58 +1,141 @@
-import { FormState, emailError, passError, validEmail, validPass } from "@/types/form-state.ts";
+import { FormState, emailError, formStateInit, passError } from "@/types/form-state.ts";
 
-const formValidator = (email: string, password: string): FormState | FormError => {
+const formValidator = (email: string, password: string): FormState => {
     const regExp = new RegExp('^[a-z0-9]+([._-]?[a-z0-9]+)+@[a-z0-9]+([._-]?[a-z0-9]+)+\\.[a-z]{2,3}$');
 
     const isEmailValid = regExp.test(email);
-    const isPassValid = password && password.length > 3;
+    const isPassValid = !!password && password.length > 3;
+    let formState: FormState = {
+        ...formStateInit,
+        stage: 'updated',
+        email: {
+            ...formStateInit.email,
+            value: email
+        },
+        password: {
+            ...formStateInit.password,
+            value: password
+        }
+    };
 
     if (!isEmailValid || !isPassValid) {
         if (!isEmailValid && isPassValid) {
+            formState = {
+                ...formState,
+                password: {
+                    ...formState.password,
+                    valid: true
+                }
+            }
             if (!email) {
-                return new FormError(emailError.required, validPass.valid);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.required
+                    }
+                }
             } else {
-                return new FormError(emailError.invalid, validPass.valid);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.invalid
+                    }
+                }
             }
         } else if (isEmailValid && !isPassValid) {
+            formState = {
+                ...formState,
+                email: {
+                    ...formState.email,
+                    valid: true
+                }
+            }
             if (!password) {
-                return new FormError(validEmail.valid, passError.required);
+                formState = {
+                    ...formState,
+                    password: {
+                        ...formState.password,
+                        error: passError.required
+                    }
+                };
             } else {
-                return new FormError(validEmail.valid, passError.invalid);
+                formState = {
+                    ...formState,
+                    password: {
+                        ...formState.password,
+                        error: passError.invalid
+                    }
+                };
             }
         } else {
             if (!email && !password) {
-                return new FormError(emailError.required, passError.required);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.required
+                    },
+                    password: {
+                        ...formState.password,
+                        error: passError.required
+                    }
+                };
             } else if (email && !password) {
-                return new FormError(emailError.invalid, passError.required);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.invalid
+                    },
+                    password: {
+                        ...formState.password,
+                        error: passError.required
+                    }
+                }
             } else if (!email && password) {
-                return new FormError(emailError.required, passError.invalid);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.required
+                    },
+                    password: {
+                        ...formState.password,
+                        error: passError.invalid
+                    }
+                }
             } else {
-                return new FormError(emailError.invalid, passError.invalid);
+                formState = {
+                    ...formState,
+                    email: {
+                        ...formState.email,
+                        error: emailError.invalid
+                    },
+                    password: {
+                        ...formState.password,
+                        error: passError.invalid
+                    }
+                }
             }
         }
     }
-
-    return {
-        email: '',
-        password: '',
-        valid: true
-    }
+    
+    return formState = {
+        ...formState,
+        valid: isEmailValid && isPassValid,
+        email: {
+            ...formState.email,
+            valid: isEmailValid
+        },
+        password: {
+            ...formState.password,
+            valid: isPassValid
+        }
+    };
 };
 
-
-class FormError implements FormState {
-    email: string;
-    password: string;
-    valid: boolean;
-
-    constructor(email: string, password: string) {
-        this.email = email;
-        this.password = password;
-        this.valid = false;
-    }
-}
-
 export {
-    formValidator,
-    FormError
+    formValidator
 }

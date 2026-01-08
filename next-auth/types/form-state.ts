@@ -1,7 +1,16 @@
 import { FormDataEntries } from "./form-data-entries.ts";
 
-interface FormState extends FormDataEntries {
-    valid: boolean
+interface FieldState {
+    valid: boolean,
+    value: string,
+    error: string
+}
+
+interface FormState extends Omit<FormDataEntries, 'email' | 'password'> {
+    valid: boolean,
+    stage: 'initial' | 'updated',
+    email: FieldState,
+    password: FieldState
 }
 
 interface EmailError {
@@ -11,19 +20,23 @@ interface EmailError {
 
 type PassError = EmailError;
 
-interface ValidEmail extends Omit<EmailError, 'required' | 'invalid'> {
-    valid: ''
-}
-
-type ValidPass = ValidEmail;
-
 const emailError: EmailError = {
     required: 'Email is required!',
     invalid: 'A valid email is required!'
 }
 
-const validEmail: ValidEmail = { valid: '' };
-const validPass: ValidPass = { valid: '' };
+const fieldStateInit: FieldState = {
+    valid: false,
+    value: '',
+    error: ''
+}
+
+const formStateInit: FormState = {
+    email: { ...fieldStateInit },
+    password: { ...fieldStateInit },
+    stage: 'initial',
+    valid: false
+}
 
 const passError: PassError = {
     required: 'Password is required!',
@@ -32,8 +45,7 @@ const passError: PassError = {
 
 export {
     type FormState,
+    formStateInit,
     emailError,
-    validEmail,
-    passError,
-    validPass
+    passError
 }

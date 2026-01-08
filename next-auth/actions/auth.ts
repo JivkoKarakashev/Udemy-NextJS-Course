@@ -1,21 +1,21 @@
 'use server';
 
-import { FormDataEntries } from "@/types/form-data-entries.ts";
-import { FormError, formValidator } from "@/utils/form-validator";
+import { redirect } from "next/navigation";
 
-const signup = async (formData: FormData) => {
+import { FormDataEntries } from "@/types/form-data-entries.ts";
+import { FormState } from "@/types/form-state";
+import { formValidator } from "@/utils/form-validator";
+
+const register = async (_prevState: FormState, formData: FormData): Promise<FormState> => {
     const { email, password } = Object.fromEntries(formData) as unknown as FormDataEntries;
     // console.log(email, password);
     const formState = formValidator(email.trim(), password.trim());
-    if (formState instanceof FormError ) {
-        // console.log(`Form is valid: ${formState.valid}`);
-        // console.log(`Email error: ${formState.email}`);
-        // console.log(`Pass error: ${formState.password}`);
-    } else {
-        // console.log(formState);
+    if (formState.valid === false) {
+        return formState;
     }
+    redirect('/training');
 };
 
 export {
-    signup
+    register
 }
