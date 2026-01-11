@@ -2,8 +2,8 @@ import Image from "next/image";
 
 import { getAllTrainings } from "@/lib/api.ts";
 
-const TrainingPage = async () => {
-  const trainingSessions = await getAllTrainings();
+const TrainingPage = (): React.ReactElement => {
+  const trainingSessions = getAllTrainings();
   return (
     <main>
       <h1>Find your favorite activity</h1>
@@ -16,7 +16,7 @@ const TrainingPage = async () => {
                 alt={training.title}
                 loading={idx === 0 ? 'eager' : 'lazy'}
                 fill
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+                sizes='(max-width: 768px) 99vw, (max-width: 1200px) 50vw, 33vw'
               />
             </div>
             <div>

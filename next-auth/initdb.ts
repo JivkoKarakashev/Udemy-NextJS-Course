@@ -15,10 +15,11 @@ db.pragma("journal_mode = WAL");
 
    db.exec(`
       CREATE TABLE IF NOT EXISTS sessions (
-         id INTEGER PRIMARY KEY,
+         id TEXT NOT NULL PRIMARY KEY,
+         createdAt INTEGER NOT NULL,
          expiresAt INTEGER NOT NULL,
          userId INTEGER,
-         FOREIGN KEY (userId) REFERENCES users(id)
+         FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
       );
    `);
 
@@ -32,12 +33,12 @@ db.pragma("journal_mode = WAL");
    `);
 
    db.exec(`
-      CREATE INDEX IF NOT EXISTS idx_sessions_userId 
+      CREATE INDEX IF NOT EXISTS idx_sessions_user 
       ON sessions(userId)
    `);
 
    db.exec(`
-      CREATE INDEX IF NOT EXISTS idx_sessions_expiresAt 
+      CREATE INDEX IF NOT EXISTS idx_sessions_expires 
       ON sessions(expiresAt)
    `);
 
