@@ -1,9 +1,10 @@
-import { cleanupExpiredSessions, validateSession } from "@/lib/sessions";
 import { NextRequest, NextResponse } from "next/server";
+
+import { cleanupExpiredSessions, validateSession } from "@/lib/sessions.ts";
 
 export function proxy(req: NextRequest): NextResponse {
     const sessionId = req.cookies.get("session")?.value;
-    console.log(sessionId);
+    // console.log(sessionId);
     const redirect = () => NextResponse.redirect(new URL("/", req.url));
     const redirectWithCleanup = (): NextResponse => {
         const res = redirect();

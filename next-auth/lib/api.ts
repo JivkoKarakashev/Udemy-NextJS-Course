@@ -1,6 +1,6 @@
 import { db } from '@/initdb.ts';
 import { Training } from '@/types/training.ts';
-import { RegisterUser } from '@/types/user.ts';
+import { AuthUser, RegisterUser } from '@/types/user.ts';
 
 const getAllTrainings = (): Training[] => {
   const stmt = db.prepare<[], Training>('SELECT * FROM trainings');
@@ -16,7 +16,16 @@ const createUser = ({ email, hash }: RegisterUser): number | bigint => {
   return result;
 };
 
+const getUserByEmail = (email: string): AuthUser | undefined => {
+  const stmt = db.prepare<{ email: string }, AuthUser>(`
+    SELECT * FROM users WHERE email = @email
+  `);
+  const result = stmt.get({ email });
+  return result;
+};
+
 export {
   getAllTrainings,
-  createUser
+  createUser,
+  getUserByEmail
 }

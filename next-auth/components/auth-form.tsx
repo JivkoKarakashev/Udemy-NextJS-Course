@@ -5,11 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import authIcon from '@/public/images/auth-icon.jpg';
-import { register } from '@/actions/auth.ts';
-import { formStateInit } from '@/types/form-state';
+import { auth } from '@/actions/auth.ts';
+import { formStateInit } from '@/types/form-state.ts';
+import { AuthMode } from '@/types/home-page-params.ts';
 
-const AuthForm = (): React.ReactElement => {
-  const [formState, formAction] = useActionState(register, { ...formStateInit });
+const AuthForm = ({ authmode }: { authmode: AuthMode }): React.ReactElement => {
+  // console.log(`Auth mode:${authmode}`);
+  const [formState, formAction] = useActionState(auth.bind(null, authmode), { ...formStateInit });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -39,11 +41,12 @@ const AuthForm = (): React.ReactElement => {
       </p>
       <p>
         <button type="submit">
-          Create Account
+          {authmode === 'register' ? 'Create Account' : 'Login'}
         </button>
       </p>
       <p>
-        <Link href="/">Login with existing account.</Link>
+        {authmode === 'register' && (<Link href="/?authmode=login">Login with existing account.</Link>)}
+        {authmode === 'login' && (<Link href="/?authmode=register">Create an account.</Link>)}
       </p>
     </form>
   );

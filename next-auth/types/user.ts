@@ -3,8 +3,9 @@ interface RegisterUser {
     hash: string
 }
 
-interface AuthUser extends RegisterUser {
-    id: number
+interface AuthUser extends Omit<RegisterUser, 'hash'> {
+    id: number,
+    password: string
 }
 
 export {

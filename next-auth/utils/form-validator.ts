@@ -1,6 +1,7 @@
+import { AuthMode } from "@/app/page.tsx";
 import { FormState, emailError, formStateInit, passError } from "@/types/form-state.ts";
 
-const formValidator = (email: string, password: string): FormState => {
+const formValidator = (authmode: AuthMode, email: string, password: string): FormState => {
     const regExp = new RegExp('^[a-z0-9]+([._-]?[a-z0-9]+)+@[a-z0-9]+([._-]?[a-z0-9]+)+\\.[a-z]{2,3}$');
 
     const isEmailValid = regExp.test(email);
@@ -32,7 +33,7 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.required
+                        error: authmode === 'register' ? emailError.required : emailError.invalidCredentials
                     }
                 }
             } else {
@@ -40,7 +41,7 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.invalid
+                        error: authmode === 'register' ? emailError.invalid : emailError.invalidCredentials
                     }
                 }
             }
@@ -57,7 +58,7 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     password: {
                         ...formState.password,
-                        error: passError.required
+                        error: authmode === 'register' ? passError.required : passError.invalidCredentials
                     }
                 };
             } else {
@@ -65,21 +66,22 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     password: {
                         ...formState.password,
-                        error: passError.invalid
+                        error: authmode === 'register' ? passError.invalid : passError.invalidCredentials
                     }
                 };
             }
         } else {
             if (!email && !password) {
+                // console.log('here');
                 formState = {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.required
+                        error: authmode === 'register' ? emailError.required : emailError.invalidCredentials
                     },
                     password: {
                         ...formState.password,
-                        error: passError.required
+                        error: authmode === 'register' ? passError.required : passError.invalidCredentials
                     }
                 };
             } else if (email && !password) {
@@ -87,11 +89,11 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.invalid
+                        error: authmode === 'register' ? emailError.invalid : emailError.invalidCredentials
                     },
                     password: {
                         ...formState.password,
-                        error: passError.required
+                        error: authmode === 'register' ? passError.required : passError.invalidCredentials
                     }
                 }
             } else if (!email && password) {
@@ -99,11 +101,11 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.required
+                        error: authmode === 'register' ? emailError.required : emailError.invalidCredentials
                     },
                     password: {
                         ...formState.password,
-                        error: passError.invalid
+                        error: authmode === 'register' ? passError.invalid : passError.invalidCredentials
                     }
                 }
             } else {
@@ -111,17 +113,17 @@ const formValidator = (email: string, password: string): FormState => {
                     ...formState,
                     email: {
                         ...formState.email,
-                        error: emailError.invalid
+                        error: authmode === 'register' ? emailError.invalid : emailError.invalidCredentials
                     },
                     password: {
                         ...formState.password,
-                        error: passError.invalid
+                        error: authmode === 'register' ? passError.invalid : passError.invalidCredentials
                     }
                 }
             }
         }
     }
-    
+
     return formState = {
         ...formState,
         valid: isEmailValid && isPassValid,

@@ -15,14 +15,16 @@ interface FormState extends Omit<FormDataEntries, 'email' | 'password'> {
 
 interface EmailError {
     required: string,
-    invalid: string
+    invalid: string,
+    invalidCredentials: string
 }
 
 type PassError = EmailError;
 
 const emailError: EmailError = {
     required: 'Email is required!',
-    invalid: 'A valid email is required!'
+    invalid: 'A valid email is required!',
+    invalidCredentials: 'Invalid credentials!'
 }
 
 const fieldStateInit: FieldState = {
@@ -40,7 +42,8 @@ const formStateInit: FormState = {
 
 const passError: PassError = {
     required: 'Password is required!',
-    invalid: 'Password must be at least 4 characters long!'
+    invalid: 'Password must be at least 4 characters long!',
+    invalidCredentials: 'Invalid credentials!'
 }
 
 export {

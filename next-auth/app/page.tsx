@@ -1,8 +1,16 @@
-import AuthForm from '@/components/auth-form';
+import { redirect } from 'next/navigation';
 
-const Home = async (): Promise<React.ReactElement> => {
+import AuthForm from '@/components/auth-form.tsx';
+import { AuthMode, queryParamsDefault } from '@/types/home-page-params.ts';
+
+const Home = async (props: PageProps<'/'>): Promise<React.ReactElement> => {
+  const { searchParams } = props;
+  const query = await searchParams;
+  const hasMode = 'authmode' in query ? 'authmode' : redirect(`/${queryParamsDefault}`);
+  const authmode: AuthMode = query[hasMode] as AuthMode;
+
   return (
-    <AuthForm />
+    <AuthForm authmode={authmode} />
   );
 };
 
