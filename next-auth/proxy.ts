@@ -1,30 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { cleanupExpiredSessions, validateSession } from "@/lib/sessions.ts";
+import { deleteCookieByMethod } from "./utils/cookie-setter.ts";
 
-export function proxy(req: NextRequest): NextResponse {
+export async function proxy(req: NextRequest): Promise<NextResponse> {
     const sessionId = req.cookies.get("session")?.value;
     // console.log(sessionId);
     const redirect = () => NextResponse.redirect(new URL("/", req.url));
-    const redirectWithCleanup = (): NextResponse => {
-        const res = redirect();
-        res.cookies.set('session', '', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            path: '/',
-            maxAge: 0,
-            expires: new Date(0)
-        });
-        return res;
+    const redirectWithCleanup = async (): Promise<NextResponse> => {
+        const redir = redirect();
+        // res = deleteCookie(res);
+        // res.cookies.set('session', '', {
+        //     httpOnly: true,
+        //     secure: process.env.NODE_ENV === 'production',
+        //     path: '/',
+        //     maxAge: 0,
+        //     expires: new Date(0)
+        // });
+        // return res;
+        const response = await deleteCookieByMethod('proxy', redir);
+        if (response instanceof NextResponse) {
+            return response;
+        } else {
+            throw new Error('Wrong response Class instance!');
+        }
     };
 
     cleanupExpiredSessions();
     if (sessionId === undefined) {
-        return redirectWithCleanup();
+        return await redirectWithCleanup();
     }
     const session = validateSession(sessionId);
     if (session === undefined) {
-        return redirectWithCleanup();
+        return await redirectWithCleanup();
     }
 
     return NextResponse.next();

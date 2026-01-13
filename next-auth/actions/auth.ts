@@ -9,8 +9,8 @@ import { formValidator } from "@/utils/form-validator.ts";
 import { createUser, getUserByEmail } from "@/lib/api.ts";
 import { RegisterUser } from "@/types/user.ts";
 import { hashPassword, verifyPassword } from "@/utils/hash.ts";
-import { createSession } from "@/lib/sessions.ts";
-import { createCookie } from "@/utils/create-cookie.ts";
+import { createSession, deleteSession } from "@/lib/sessions.ts";
+import { createCookie, deleteCookieByMethod } from "@/utils/cookie-setter.ts";
 import { AuthMode } from "@/types/home-page-params.ts";
 
 const register = async (authmode: AuthMode, _prevState: FormState, formData: FormData): Promise<FormState> => {
@@ -69,14 +69,28 @@ const login = async (authmode: AuthMode, _prevState: FormState, formData: FormDa
     redirect('/training');
 };
 
+const logout = async (): Promise<void> => {
+    const sessionId = await deleteCookieByMethod('action');
+    if (typeof sessionId !== 'string' || !sessionId) {
+        throw new Error('Missing sessionId or sessionId is an instance of wrong Class!');
+    }
+    deleteSession(sessionId);
+    redirect('/');
+};
+
 async function auth(authmode: AuthMode, prevState: FormState, formData: FormData) {
     // console.log(`Auth mode:${authmode}`);
-    if (authmode === 'login') {
-        return login(authmode, prevState, formData);
+    switch (authmode) {
+        case 'login': {
+            return login(authmode, prevState, formData);
+        }
+        case 'register': {
+            return register(authmode, prevState, formData);
+        }
     }
-    return register(authmode, prevState, formData);
 }
 
 export {
-    auth
+    auth,
+    logout
 }

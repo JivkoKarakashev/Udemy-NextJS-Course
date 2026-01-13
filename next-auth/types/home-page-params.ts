@@ -1,5 +1,5 @@
-type AuthMode = 'register' | 'login' | 'logout';
-type AuthParams = '?authmode=register' | '?authmode=login' | '?authmode=logout';
+type AuthMode = 'register' | 'login';
+type AuthParams = '?authmode=register' | '?authmode=login';
 
 const queryParamsDefault: AuthParams = '?authmode=login';
 

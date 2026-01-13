@@ -56,5 +56,6 @@ const cleanupExpiredSessions = (): void => {
 export {
     createSession,
     validateSession,
+    deleteSession,
     cleanupExpiredSessions
 }
